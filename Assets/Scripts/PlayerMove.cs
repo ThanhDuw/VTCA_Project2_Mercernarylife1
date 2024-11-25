@@ -1,4 +1,9 @@
+<<<<<<< Updated upstream:Assets/Scripts/PlayerMove.cs
 ﻿using System.Collections;
+=======
+﻿using JetBrains.Annotations;
+using System.Collections;
+>>>>>>> Stashed changes:Assets/Scripts/Player/PlayerMovement.cs
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -69,6 +74,7 @@ public class PlayerMove : MonoBehaviour
         if (Input.GetKeyDown(KeyCode.Space) && isGrounded)
         {
             rb2D.AddForce(Vector2.up * jumpForce, ForceMode2D.Impulse);
+<<<<<<< Updated upstream:Assets/Scripts/PlayerMove.cs
             isGrounded = false;
             _animator.SetBool("IsJump", true);
         }
@@ -89,6 +95,35 @@ public class PlayerMove : MonoBehaviour
             {
                 spawnPosition += new Vector2(-1, 0);
                 bulletSpeed = -10;
+=======
+            _animator.SetBool("IsJumping", true); // Bắt đầu animation Jumping
+            isGrounded = false; // Đặt trạng thái chưa chạm đất
+        }
+
+        //Khi chạm đất, chuyển về Idle
+        if (isGrounded)
+        {
+            _animator.SetBool("IsJumping", false);
+
+        }
+
+
+        if (Input.GetMouseButtonDown(0)) // Shoot
+        {
+            Vector2 spwamPosition = transform.position;
+            _animator.SetBool("IsShooting", true);
+            //van toc vien dan
+            float bombSpeed = 10f;
+            if (isFacingRight)
+            {
+                spwamPosition += new Vector2(1, 0);
+                bombSpeed = 10;
+            }
+            else
+            {
+                spwamPosition += new Vector2(-1, 0);
+                bombSpeed = -10;
+>>>>>>> Stashed changes:Assets/Scripts/Player/PlayerMovement.cs
             }
             if (Input.GetKeyDown(KeyCode.Space) && isGrounded)
             {
@@ -112,8 +147,11 @@ public class PlayerMove : MonoBehaviour
         //}
     }
 
+<<<<<<< Updated upstream:Assets/Scripts/PlayerMove.cs
 
 
+=======
+>>>>>>> Stashed changes:Assets/Scripts/Player/PlayerMovement.cs
     //void InteractWithNPC()
     //{
     //    Collider2D[] hits = Physics2D.OverlapCircleAll(transform.position, interactRange, npcLayer);
@@ -139,8 +177,12 @@ public class PlayerMove : MonoBehaviour
         {
             isGrounded = true;
         }
+<<<<<<< Updated upstream:Assets/Scripts/PlayerMove.cs
 
         //if (collision.collider.CompareTag("Enemy"))
+=======
+        //if (collision.collider.CompareTag("EnemyBullet"))
+>>>>>>> Stashed changes:Assets/Scripts/Player/PlayerMovement.cs
         //{
         //    TakeDamage(10);
         //}

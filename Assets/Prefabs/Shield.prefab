@@ -12,8 +12,13 @@ GameObject:
   - component: {fileID: 6850975782576492590}
   - component: {fileID: 8025868611922086611}
   m_Layer: 0
+<<<<<<< Updated upstream:Assets/Prefabs/Shield.prefab
   m_Name: Shield
   m_TagString: Untagged
+=======
+  m_Name: enemy-shoot1
+  m_TagString: EnemyBullet
+>>>>>>> Stashed changes:Assets/Prefabs/enemy-shoot1.prefab
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0

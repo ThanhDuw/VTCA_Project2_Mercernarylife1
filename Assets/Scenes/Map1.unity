@@ -611,6 +611,26 @@ Transform:
   - {fileID: 1448727897}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &506046629 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 6888473602265701274, guid: 873c066afc9ff374eabbb8a5d0955a8f, type: 3}
+  m_PrefabInstance: {fileID: 1164369089}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &506046636
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 506046629}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 454d24ca66929ea4ab4b263630329515, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  health: 30
+  GameOver: {fileID: 0}
+  countdownText: {fileID: 1799719353}
 --- !u!1 &513582375
 GameObject:
   m_ObjectHideFlags: 0
@@ -1962,6 +1982,37 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+<<<<<<< Updated upstream
+=======
+    - target: {fileID: 4880347848190319387, guid: 873c066afc9ff374eabbb8a5d0955a8f, type: 3}
+      propertyPath: m_Size.x
+      value: 0.8990802
+      objectReference: {fileID: 0}
+    - target: {fileID: 4880347848190319387, guid: 873c066afc9ff374eabbb8a5d0955a8f, type: 3}
+      propertyPath: m_Size.y
+      value: 1.9615567
+      objectReference: {fileID: 0}
+    - target: {fileID: 4880347848190319387, guid: 873c066afc9ff374eabbb8a5d0955a8f, type: 3}
+      propertyPath: m_Offset.x
+      value: -0.088974565
+      objectReference: {fileID: 0}
+    - target: {fileID: 4880347848190319387, guid: 873c066afc9ff374eabbb8a5d0955a8f, type: 3}
+      propertyPath: m_Offset.y
+      value: -0.35255516
+      objectReference: {fileID: 0}
+    - target: {fileID: 5655717739472173943, guid: 873c066afc9ff374eabbb8a5d0955a8f, type: 3}
+      propertyPath: jumpForce
+      value: 5
+      objectReference: {fileID: 0}
+    - target: {fileID: 6834471625742726225, guid: 873c066afc9ff374eabbb8a5d0955a8f, type: 3}
+      propertyPath: m_LocalScale.x
+      value: 1.0045
+      objectReference: {fileID: 0}
+    - target: {fileID: 6834471625742726225, guid: 873c066afc9ff374eabbb8a5d0955a8f, type: 3}
+      propertyPath: m_LocalScale.y
+      value: 0.9464
+      objectReference: {fileID: 0}
+>>>>>>> Stashed changes
     - target: {fileID: 6834471625742726225, guid: 873c066afc9ff374eabbb8a5d0955a8f, type: 3}
       propertyPath: m_LocalPosition.x
       value: -21.21997
@@ -2013,7 +2064,11 @@ PrefabInstance:
     m_AddedComponents:
     - targetCorrespondingSourceObject: {fileID: 6888473602265701274, guid: 873c066afc9ff374eabbb8a5d0955a8f, type: 3}
       insertIndex: -1
+<<<<<<< Updated upstream
       addedObject: {fileID: 923835608}
+=======
+      addedObject: {fileID: 506046636}
+>>>>>>> Stashed changes
   m_SourcePrefab: {fileID: 100100000, guid: 873c066afc9ff374eabbb8a5d0955a8f, type: 3}
 --- !u!1 &1189723658
 GameObject:
