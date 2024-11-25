@@ -1,4 +1,4 @@
-using System.Collections;
+﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 public class PlayerMove : MonoBehaviour
@@ -58,21 +58,31 @@ public class PlayerMove : MonoBehaviour
         if (Input.GetKeyDown(KeyCode.Space) && isGrounded)
         {
             rb2D.AddForce(Vector2.up * jumpForce, ForceMode2D.Impulse);
+            _animator.SetBool("IsJumping", true); // Bắt đầu animation Jumping
+            isGrounded = false; // Đặt trạng thái chưa chạm đất
         }
+
+        // Khi chạm đất, chuyển về Idle
+        if (isGrounded)
+        {
+            _animator.SetBool("IsJumping", false);
+
+        }
+
         if (Input.GetMouseButtonDown(0)) // Shoot
         {
             Vector2 spwamPosition = transform.position;
             //van toc vien dan
-            float bombSpeed = 50f;
+            float bombSpeed = 10f;
             if (isFacingRight)
             {
                 spwamPosition += new Vector2(1, 0);
-                bombSpeed = 50;
+                bombSpeed = 10;
             }
             else
             {
                 spwamPosition += new Vector2(-1, 0);
-                bombSpeed = -50;
+                bombSpeed = -10;
             }
             if (Input.GetKeyDown(KeyCode.Space) && isGrounded)
             {
