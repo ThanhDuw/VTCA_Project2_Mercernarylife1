@@ -6,7 +6,7 @@ using UnityEngine;
 public class PlayerDie : MonoBehaviour
 {
 
-    private Rigidbody2D rigidbody2D;
+    private Rigidbody2D Rigidbody2D;
     [SerializeField] private float health = 30f;
     [SerializeField] private GameObject GameOver;
 
@@ -15,7 +15,7 @@ public class PlayerDie : MonoBehaviour
 
     void Start()
     {
-        rigidbody2D = GetComponent<Rigidbody2D>();
+        Rigidbody2D = GetComponent<Rigidbody2D>();
         /*GameOver.SetActive(false);*/
     }
 
@@ -53,7 +53,7 @@ public class PlayerDie : MonoBehaviour
 
     private void OnCollisionEnter2D(Collision2D collision)
     {
-        if (collision.gameObject.CompareTag("EnemyShoot")) /*&& !GameOver.activeSelf)*/
+        if (collision.gameObject.CompareTag("EnemyBullet")) /*&& !GameOver.activeSelf)*/
         {
             if (health <= 0)
             {
