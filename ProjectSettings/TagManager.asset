@@ -3,14 +3,7 @@
 --- !u!78 &1
 TagManager:
   serializedVersion: 2
-  tags:
-  - Ground
-<<<<<<< Updated upstream
-=======
-  - Bullet
-  - Wall
-  - EnemyBullet
->>>>>>> Stashed changes
+  tags: []
   layers:
   - Default
   - TransparentFX
@@ -18,7 +11,7 @@ TagManager:
   - 
   - Water
   - UI
-  - bg
+  - 
   - 
   - 
   - 
@@ -47,16 +40,4 @@ TagManager:
   m_SortingLayers:
   - name: Default
     uniqueID: 0
-    locked: 0
-  - name: bg1
-    uniqueID: 1540772297
-    locked: 0
-  - name: bg2
-    uniqueID: 1257639899
-    locked: 0
-  - name: Tile
-    uniqueID: 3128574791
-    locked: 0
-  - name: Enemy
-    uniqueID: 1339907649
     locked: 0
