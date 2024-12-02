@@ -7,6 +7,8 @@ TagManager:
   - Ground
   - Bullet
   - Wall
+  - VienDan
+  - EnemyShoot
   layers:
   - Default
   - TransparentFX
