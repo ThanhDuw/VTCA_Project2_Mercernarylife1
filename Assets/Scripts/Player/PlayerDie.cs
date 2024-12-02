@@ -16,13 +16,13 @@ public class PlayerDie : MonoBehaviour
     void Start()
     {
         Rigidbody2D = GetComponent<Rigidbody2D>();
-        /*GameOver.SetActive(false);*/
+        GameOver.SetActive(false);
     }
 
     void Update()
     {
         // Nếu GameOver đang active thì không thực hiện gì
-        /*if (GameOver.activeSelf) return;*/
+        if (GameOver.activeSelf) return;
 
         // Giảm thời gian đếm ngược
         countdownTime -= Time.deltaTime;
@@ -46,21 +46,20 @@ public class PlayerDie : MonoBehaviour
     // Xử lý player chết
     void PlayerDeath()
     {
-        /*GameOver.SetActive(true);
+        GameOver.SetActive(true);
         Debug.Log("Player is dead.");
-        Time.timeScale = 0; // Tạm dừng game*/
+        Time.timeScale = 0; // Tạm dừng game
     }
 
     private void OnCollisionEnter2D(Collision2D collision)
     {
-        if (collision.gameObject.CompareTag("EnemyBullet")) /*&& !GameOver.activeSelf)*/
+        if (collision.gameObject.CompareTag("EnemyBullet") && !GameOver.activeSelf)
         {
             if (health <= 0)
             {
-                /*Time.timeScale = 0;
+                Time.timeScale = 0;
                 GameOver.SetActive(true);
-                Debug.Log("Player is dead due to no health.");*/
-                Destroy(gameObject);
+                Debug.Log("Player is dead due to no health.");
             }
             else
             {
