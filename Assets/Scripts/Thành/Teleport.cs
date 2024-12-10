@@ -10,10 +10,16 @@ public class Teleport : MonoBehaviour
 
     public Animator transition;
     public float transitionTime = 1f;
+    public Animator truckRun;
+    public ParticleSystem truckFire;
 
 
     private void Start()
     {
+
+        truckFire.Pause();
+        truckRun.SetBool("Run", false);
+        
         if (PlayerPrefs.HasKey("SpawnX") && PlayerPrefs.HasKey("SpawnY") && PlayerPrefs.HasKey("SpawnZ"))
         {
             // Đặt vị trí spawn cho người chơi
@@ -40,20 +46,24 @@ public class Teleport : MonoBehaviour
     {
         if (other.CompareTag("Player"))
         {
+            truckRun.SetBool("Run", true);
+            truckFire.Play();
+            Destroy(other.gameObject);
             // Đặt vị trí cho người chơi
             PlayerPrefs.SetFloat("SpawnX", playerSpawnPosition.x);
             PlayerPrefs.SetFloat("SpawnY", playerSpawnPosition.y);
             PlayerPrefs.SetFloat("SpawnZ", playerSpawnPosition.z);
 
-            StartCoroutine(LoadSceneWithTransition(SceneManager.GetActiveScene().buildIndex + 1));           
+            StartCoroutine(LoadSceneWithTransition(1f,SceneManager.GetActiveScene().buildIndex + 1));           
         }
 
     }
-    private IEnumerator LoadSceneWithTransition(int levelIndex)
+    private IEnumerator LoadSceneWithTransition(float waitTime,int levelIndex)
     {
+        yield return new WaitForSeconds(waitTime);
         // Bật animation chuyển cảnh
         transition.SetTrigger("Start");
-        
+
 
         // Đợi animation hoàn tất
         yield return new WaitForSeconds(transitionTime);
