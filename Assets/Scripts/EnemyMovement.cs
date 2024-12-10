@@ -11,6 +11,8 @@ public class Enemy : MonoBehaviour
     [SerializeField] private SpriteRenderer spriteRenderer;
     private Animator animator;
     [SerializeField] private float hp = 30;
+
+    public int ID { get; set; }
     // Start is called before the first frame update
     void Start()
     {
@@ -19,6 +21,8 @@ public class Enemy : MonoBehaviour
         rightBoundary = transform.position.x + boundary;
         spriteRenderer = GetComponent<SpriteRenderer>();
         animator = GetComponent<Animator>();
+
+        ID = 0;
     }
 
     // Update is called once per frame
@@ -60,20 +64,20 @@ public class Enemy : MonoBehaviour
                 speed = -speed;
             }
         }
-        // neu quai cham phai vien dan se chet
-        if (collision.gameObject.CompareTag("Bullet"))
-        {
-            //tru hp
-            if (hp <= 0)
-            {
-                //hieu ung khi boss bi trung dan                               
-                Destroy(gameObject);
-            }
-            else
-            {
-                hp -= 10;//so mau boss mat khi bi danh trung               
-            }
-        }
+        //// neu quai cham phai vien dan se chet
+        //if (collision.gameObject.CompareTag("Bullet"))
+        //{
+        //    //tru hp
+        //    if (hp <= 0)
+        //    {
+        //        //hieu ung khi boss bi trung dan                               
+        //        Destroy(gameObject);
+        //    }
+        //    else
+        //    {
+        //        hp -= 10;//so mau boss mat khi bi danh trung               
+        //    }
+        //}
     }
     private void OnTriggerExit2D(Collider2D collision)
     {
@@ -82,5 +86,17 @@ public class Enemy : MonoBehaviour
         {
             animator.SetBool("isAttacking", false);
         }
+    }
+    public void TakeDamage(float damage)
+    {
+        hp -= damage; 
+        if (hp <= 0)
+        {
+            Die(); 
+        }
+    }
+    private void Die()
+    {
+        Destroy(gameObject); 
     }
 }
