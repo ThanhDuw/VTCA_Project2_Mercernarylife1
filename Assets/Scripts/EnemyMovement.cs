@@ -12,6 +12,8 @@ public class Enemy : MonoBehaviour
     private Animator animator;
     [SerializeField] private float hp = 30;
 
+    public GameObject destructionFX;
+
     public int ID { get; set; }
     // Start is called before the first frame update
     void Start()
@@ -97,6 +99,7 @@ public class Enemy : MonoBehaviour
     }
     private void Die()
     {
+        Instantiate(destructionFX, transform.position, Quaternion.identity);
         Destroy(gameObject); 
     }
 }
