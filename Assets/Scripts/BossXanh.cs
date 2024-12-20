@@ -182,15 +182,20 @@ public class BossXanh : MonoBehaviour
                 Debug.Log("-10 HP");
             }
         }
+<<<<<<< Updated upstream
         
+=======
+
+>>>>>>> Stashed changes
     }
 
 
     private IEnumerator StopShieldAnimation()
     {
+        float previousSpeed = speed; // Lưu lại tốc độ trước khi dừng
         speed = 0f; // Dừng Enemy
         yield return new WaitForSeconds(3f); // Đợi 3 giây
-        speed = 1f;
+        speed = previousSpeed; // Khôi phục tốc độ ban đầu
         animator.SetBool("Shield", false);
     }
 }

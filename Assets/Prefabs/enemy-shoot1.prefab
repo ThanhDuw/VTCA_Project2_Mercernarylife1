@@ -11,12 +11,17 @@ GameObject:
   - component: {fileID: 5365679978911270847}
   - component: {fileID: 5925940997545505008}
   - component: {fileID: 5285744927288625386}
+<<<<<<< Updated upstream
   - component: {fileID: 6644047462076271657}
   - component: {fileID: -3458653371762434560}
   - component: {fileID: -3271923391705224488}
+=======
+  - component: {fileID: -8241808116638010744}
+  - component: {fileID: 5020987386704269800}
+>>>>>>> Stashed changes
   m_Layer: 0
   m_Name: enemy-shoot1
-  m_TagString: Untagged
+  m_TagString: BossBullet
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -30,8 +35,13 @@ Transform:
   m_GameObject: {fileID: 5613693960996935568}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+<<<<<<< Updated upstream
   m_LocalPosition: {x: -13.8294, y: -9.509, z: 0}
   m_LocalScale: {x: 4.2046747, y: 3.5400116, z: 1}
+=======
+  m_LocalPosition: {x: -12.605, y: -9.3989, z: 0}
+  m_LocalScale: {x: 4.9568, y: 5.055034, z: 1}
+>>>>>>> Stashed changes
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
@@ -109,7 +119,11 @@ Animator:
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorStateOnDisable: 0
   m_WriteDefaultValuesOnDisable: 0
+<<<<<<< Updated upstream
 --- !u!50 &6644047462076271657
+=======
+--- !u!50 &-8241808116638010744
+>>>>>>> Stashed changes
 Rigidbody2D:
   serializedVersion: 4
   m_ObjectHideFlags: 0
@@ -136,7 +150,11 @@ Rigidbody2D:
   m_SleepingMode: 1
   m_CollisionDetection: 0
   m_Constraints: 4
+<<<<<<< Updated upstream
 --- !u!61 &-3458653371762434560
+=======
+--- !u!61 &5020987386704269800
+>>>>>>> Stashed changes
 BoxCollider2D:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -168,7 +186,11 @@ BoxCollider2D:
   m_IsTrigger: 1
   m_UsedByEffector: 0
   m_UsedByComposite: 0
+<<<<<<< Updated upstream
   m_Offset: {x: 0.034310058, y: -0.036094546}
+=======
+  m_Offset: {x: 0.03074053, y: -0.030143008}
+>>>>>>> Stashed changes
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0.5, y: 0.5}
@@ -179,6 +201,7 @@ BoxCollider2D:
     adaptiveTiling: 0
   m_AutoTiling: 0
   serializedVersion: 2
+<<<<<<< Updated upstream
   m_Size: {x: 0.3549504, y: 0.35987937}
   m_EdgeRadius: 0
 --- !u!114 &-3271923391705224488
@@ -193,3 +216,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a0bea8c3c92478b4eb72f4c165f4b245, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+=======
+  m_Size: {x: 0.3537675, y: 0.3352131}
+  m_EdgeRadius: 0
+>>>>>>> Stashed changes

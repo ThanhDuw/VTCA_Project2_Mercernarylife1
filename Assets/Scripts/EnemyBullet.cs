@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 
 public class EnemyBullet : MonoBehaviour
+<<<<<<< Updated upstream
 {
     [SerializeField] private float speed = 1f;
     private Rigidbody2D rb2D;
@@ -28,9 +29,34 @@ public class EnemyBullet : MonoBehaviour
     {
         speed = newSpeed;
     }
+=======
+{   
+    public int damage = 10;
+>>>>>>> Stashed changes
     //ham xu li va cham
-    private void OnCollisionEnter2D(Collision2D collision)
+    private void OnTriggerEnter2D(Collider2D collision)
     {
+<<<<<<< Updated upstream
         Destroy(gameObject, 3);
+=======
+        if (collision.gameObject.CompareTag("EnemyBullet"))
+        {
+            Destroy(gameObject, 3);
+            PlayerStats player = collision.gameObject.GetComponent<PlayerStats>();
+            if (player != null)
+            {
+                player.TakeDamage(damage);
+            }
+        }
+        else if (collision.gameObject.CompareTag("BossBullet"))
+        {
+            Destroy(gameObject, 3);
+            PlayerStats player = collision.gameObject.GetComponent<PlayerStats>();
+            if (player != null)
+            {
+                player.TakeDamage(damage);
+            }
+        }
+>>>>>>> Stashed changes
     }
 }
