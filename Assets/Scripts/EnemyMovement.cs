@@ -78,15 +78,7 @@ public class Enemy : MonoBehaviour
         //        hp -= 10;//so mau boss mat khi bi danh trung               
         //    }
         //}
-    }
-    private void OnTriggerExit2D(Collider2D collision)
-    {
-        // neu nhan vat chay ra khoi pham vi tan cong thi vao lai trang thai di chuyen
-        if (collision.gameObject.CompareTag("Player"))
-        {
-            animator.SetBool("isAttacking", false);
-        }
-    }
+    }    
     public void TakeDamage(float damage)
     {
         hp -= damage; 

@@ -1705,7 +1705,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!95 &618227555
 Animator:
   serializedVersion: 5
@@ -12189,10 +12189,10 @@ MonoBehaviour:
   speed: 1
   boundary: 2
   spriteRenderer: {fileID: 0}
-  hp: 30
+  hp: 200
   shootingRange: 4
   maxYDifference: 1.5
-  energyWavePrefab: {fileID: 5380569076718485164, guid: 7ec824bca0078b747958ed276fe873ea, type: 3}
+  energyWavePrefab: {fileID: 5613693960996935568, guid: b4da461278834dd428faebdc25eac613, type: 3}
   energyWaveSpeed: 10
   player: {fileID: 1417796283}
 --- !u!61 &2083657531
@@ -12266,7 +12266,7 @@ Rigidbody2D:
   m_Interpolate: 0
   m_SleepingMode: 1
   m_CollisionDetection: 0
-  m_Constraints: 4
+  m_Constraints: 7
 --- !u!1 &2133366422
 GameObject:
   m_ObjectHideFlags: 0
@@ -12369,12 +12369,20 @@ PrefabInstance:
       value: Military Incursion Bot Sprite Sheet_0
       objectReference: {fileID: 0}
     - target: {fileID: 2536383444186314007, guid: 6ab5f0fd55fed9c42a658ec4277f5707, type: 3}
+      propertyPath: m_LocalScale.x
+      value: 1.3586
+      objectReference: {fileID: 0}
+    - target: {fileID: 2536383444186314007, guid: 6ab5f0fd55fed9c42a658ec4277f5707, type: 3}
+      propertyPath: m_LocalScale.y
+      value: 1.4424793
+      objectReference: {fileID: 0}
+    - target: {fileID: 2536383444186314007, guid: 6ab5f0fd55fed9c42a658ec4277f5707, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 10.79
+      value: 4.44
       objectReference: {fileID: 0}
     - target: {fileID: 2536383444186314007, guid: 6ab5f0fd55fed9c42a658ec4277f5707, type: 3}
       propertyPath: m_LocalPosition.y
-      value: -9.1
+      value: -15.65
       objectReference: {fileID: 0}
     - target: {fileID: 2536383444186314007, guid: 6ab5f0fd55fed9c42a658ec4277f5707, type: 3}
       propertyPath: m_LocalPosition.z
