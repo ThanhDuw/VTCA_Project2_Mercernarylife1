@@ -170,8 +170,25 @@ public class BossXanh : MonoBehaviour
         speed = 0f;
 
         animator.SetTrigger("Die"); // Kích hoạt Animation Die
-        yield return new WaitForSeconds(1.5f); // Chờ animation kết thúc
-        
-        //Destroy(gameObject); // Xóa game object
+        yield return new WaitForSeconds(1.5f); // Chờ animation Die hoàn tất
+
+        // Hạ xác Boss xuống 1f
+        float targetY = transform.position.y - 1f;
+        float duration = 0.5f; // Thời gian di chuyển (0.5s)
+        float elapsedTime = 0f;
+        Vector3 startPosition = transform.position;
+        Vector3 targetPosition = new Vector3(transform.position.x, targetY, transform.position.z);
+
+        while (elapsedTime < duration)
+        {
+            transform.position = Vector3.Lerp(startPosition, targetPosition, elapsedTime / duration);
+            elapsedTime += Time.deltaTime;
+            yield return null;
+        }
+
+        // Đảm bảo vị trí cuối cùng chính xác
+        transform.position = targetPosition;
+
+        // Boss sẽ không bị xóa, giữ nguyên xác tại vị trí này
     }
 }
