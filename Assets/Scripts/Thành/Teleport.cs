@@ -34,7 +34,7 @@ public class Teleport : MonoBehaviour
             }
             truckRun.SetBool("Run", true);
             truckFire.Play();
-            DontDestroyOnLoad(other.gameObject);
+            //DontDestroyOnLoad(other.gameObject);
          
             StartCoroutine(LoadSceneWithTransition(1f,SceneManager.GetActiveScene().buildIndex + 1, other));
             
@@ -53,6 +53,7 @@ public class Teleport : MonoBehaviour
 
         // Load scene mới
         SceneManager.LoadScene(levelIndex);
+        
         SpriteRenderer playerRenderer = other.GetComponent<SpriteRenderer>();
         if (playerRenderer != null)
         {
@@ -60,6 +61,7 @@ public class Teleport : MonoBehaviour
             color.a = 1f; 
             playerRenderer.color = color;
         }
+        
         // Đặt vị trí spawn cho người chơi
         Vector3 spawnPosition = new Vector3(
             PlayerPrefs.GetFloat("SpawnX"),

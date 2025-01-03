@@ -5,6 +5,10 @@ using UnityEngine;
 public class CameraFollow : MonoBehaviour
 {
     private static CameraFollow instance;
+    private void Start()
+    {
+        GameObject[] players = GameObject.FindGameObjectsWithTag("Player");
+    }
 
     private void Awake()
     {
@@ -15,7 +19,7 @@ public class CameraFollow : MonoBehaviour
         }
         else
         {
-            Destroy(gameObject);
+            //Destroy(gameObject);
         }
     }
 }
