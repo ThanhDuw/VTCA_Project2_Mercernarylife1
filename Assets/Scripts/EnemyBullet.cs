@@ -16,6 +16,8 @@ public class EnemyBullet : MonoBehaviour
             {
                 player.TakeDamage(damage);
             }
+
+            Destroy(gameObject, 0.1f);
         }
         
     }
