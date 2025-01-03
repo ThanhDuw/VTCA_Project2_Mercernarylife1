@@ -201,5 +201,5 @@ MonoBehaviour:
   fireRate: 1
   bulletPrefab: {fileID: 2383671114505269089, guid: 47f19215e0592b14a84eb0202ed8baec, type: 3}
   bulletSpeed: 10
-  player: {fileID: 0}
+  player: {fileID: 6834471625742726225, guid: 873c066afc9ff374eabbb8a5d0955a8f, type: 3}
   destructionFX: {fileID: 1916644535388506190, guid: 04729440bdccdca499071e97a6dd6ecd, type: 3}
