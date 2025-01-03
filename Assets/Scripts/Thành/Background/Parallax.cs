@@ -12,7 +12,7 @@ public class Parallax : MonoBehaviour
 
     void Start()
     {
-        mat = GetComponent<Material>();
+        mat = GetComponent<Renderer>().material;
     }
     private void Update()
     {
