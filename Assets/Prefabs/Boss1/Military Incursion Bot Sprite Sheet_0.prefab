@@ -14,6 +14,7 @@ GameObject:
   - component: {fileID: 4448463912417185947}
   - component: {fileID: 4683300023127290640}
   - component: {fileID: 1299044878857271612}
+  - component: {fileID: 231011892287368202}
   m_Layer: 0
   m_Name: Military Incursion Bot Sprite Sheet_0
   m_TagString: Untagged
@@ -30,7 +31,7 @@ Transform:
   m_GameObject: {fileID: 198175566556527932}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -19.59, y: -9, z: 0}
+  m_LocalPosition: {x: 2.333071, y: -15.03529, z: 0}
   m_LocalScale: {x: 2.1087728, y: 2.014847, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -129,7 +130,7 @@ MonoBehaviour:
   maxYDifference: 1.5
   energyWavePrefab: {fileID: 5613693960996935568, guid: b4da461278834dd428faebdc25eac613, type: 3}
   energyWaveSpeed: 10
-  player: {fileID: 0}
+  DeadSpeed: 0
 --- !u!50 &4683300023127290640
 Rigidbody2D:
   serializedVersion: 4
@@ -145,7 +146,7 @@ Rigidbody2D:
   m_Mass: 1
   m_LinearDrag: 0
   m_AngularDrag: 0.05
-  m_GravityScale: 1
+  m_GravityScale: 0
   m_Material: {fileID: 0}
   m_IncludeLayers:
     serializedVersion: 2
@@ -202,3 +203,16 @@ BoxCollider2D:
   serializedVersion: 2
   m_Size: {x: 2.3666666, y: 2.2}
   m_EdgeRadius: 0
+--- !u!114 &231011892287368202
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 198175566556527932}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a497c4a91b8b66643b9dc4144340875d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  keyPrefab: {fileID: 2606240985953608975, guid: 1ada568f1b9f672488f910096aa269f3, type: 3}

@@ -8,17 +8,15 @@ public class EnemyMovement : MonoBehaviour
     [SerializeField] private float boundary; // Khoảng cách di chuyển tối đa
     [SerializeField] private SpriteRenderer spriteRenderer;
     [SerializeField] private float hp = 30; // Máu của enemy
-    [SerializeField] private float shootingRange = 4f; // Tầm bắn
+    [SerializeField] private float shootingRange = 2f; // Tầm bắn theo trục X
     [SerializeField] private float fireRate = 1f; // Tốc độ bắn
     [SerializeField] private GameObject bulletPrefab; // Prefab của đạn
     [SerializeField] private float bulletSpeed = 10f; // Tốc độ của đạn
-    [SerializeField] private Transform player; // Tham chiếu tới player
 
     private float leftBoundary, rightBoundary;
     private float fireCooldown = 0f;
     private Animator animator;
     private Rigidbody2D rb2D;
-
 
     public GameObject destructionFX;
 
@@ -40,7 +38,7 @@ public class EnemyMovement : MonoBehaviour
         // Di chuyển enemy
         MoveEnemy();
 
-        // Bắn đạn nếu player trong tầm bắn và cùng hướng
+        // Bắn đạn nếu tìm thấy player trong phạm vi bắn
         TryShoot();
     }
 
@@ -66,21 +64,27 @@ public class EnemyMovement : MonoBehaviour
 
     private void TryShoot()
     {
-        // Kiểm tra khoảng cách giữa enemy và player
-        float distanceToPlayer = Vector2.Distance(transform.position, player.position);
+        // Tìm tất cả các đối tượng có Tag "Player"
+        GameObject[] players = GameObject.FindGameObjectsWithTag("Player");
 
-        // Kiểm tra nếu player trong tầm bắn và cùng hướng với enemy
-        bool isPlayerInDirection = (speed > 0 && player.position.x > transform.position.x) ||
-                                   (speed < 0 && player.position.x < transform.position.x);
-
-        if (distanceToPlayer <= shootingRange && isPlayerInDirection)
+        foreach (GameObject player in players)
         {
-            fireCooldown -= Time.deltaTime; // Giảm thời gian hồi chiêu
+            float distanceToPlayer = Mathf.Abs(player.transform.position.x - transform.position.x);
 
-            if (fireCooldown <= 0f)
+            // Kiểm tra nếu player trong tầm bắn (theo trục X) và cùng hướng với enemy
+            bool isPlayerInDirection = (speed > 0 && player.transform.position.x > transform.position.x) ||
+                                       (speed < 0 && player.transform.position.x < transform.position.x);
+
+            if (distanceToPlayer <= shootingRange && isPlayerInDirection)
             {
-                Shoot();
-                fireCooldown = 1f / fireRate; // Đặt lại thời gian hồi chiêu
+                fireCooldown -= Time.deltaTime; // Giảm thời gian hồi chiêu
+
+                if (fireCooldown <= 0f)
+                {
+                    Shoot();
+                    fireCooldown = 1f / fireRate; // Đặt lại thời gian hồi chiêu
+                }
+                break; // Ngừng kiểm tra nếu đã bắn
             }
         }
     }
@@ -101,7 +105,7 @@ public class EnemyMovement : MonoBehaviour
 
         // Hủy viên đạn sau 5 giây để tránh tràn bộ nhớ
         Destroy(bullet, 5f);
-    }      
+    }
 
     void OnDrawGizmosSelected()
     {
@@ -109,18 +113,19 @@ public class EnemyMovement : MonoBehaviour
         Gizmos.color = Color.red;
         Gizmos.DrawWireSphere(transform.position, shootingRange);
     }
+
     public void TakeDamage(float damage)
     {
-        hp -= damage; 
+        hp -= damage;
         if (hp <= 0)
         {
-            Die(); 
+            Die();
         }
     }
+
     private void Die()
     {
         Instantiate(destructionFX, transform.position, Quaternion.identity);
         Destroy(gameObject);
-        
     }
 }

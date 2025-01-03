@@ -3,21 +3,21 @@ using UnityEngine;
 
 public class BossXanh : MonoBehaviour
 {
-    [SerializeField] private float speed = 2f; // Tốc độ di chuyển của enemy
+    [SerializeField] private float speed = 2f; // Tốc độ di chuyển của Boss
     [SerializeField] private float boundary; // Khoảng cách di chuyển tối đa
     [SerializeField] private SpriteRenderer spriteRenderer;
-    [SerializeField] private float hp = 30; // Máu của enemy
+    [SerializeField] private float hp = 30; // Máu của Boss
     [SerializeField] private float shootingRange = 4f; // Tầm bắn trên trục X
-    [SerializeField] private float maxYDifference = 1.5f; // Chênh lệch tối đa trên trục Y để Enemy tấn công
-    [SerializeField] private GameObject energyWavePrefab; // Prefab của tia chưởng lực (energy wave)
+    [SerializeField] private float maxYDifference = 1.5f; // Chênh lệch tối đa trên trục Y để Boss tấn công
+    [SerializeField] private GameObject energyWavePrefab; // Prefab của tia chưởng lực
     [SerializeField] private float energyWaveSpeed = 10f; // Tốc độ của tia chưởng lực
-    [SerializeField] private Transform player; // Tham chiếu tới player
+
     private float leftBoundary, rightBoundary;
     private Animator animator;
     private Rigidbody2D rb2D;
 
-    private bool isShooting = false; // Biến kiểm tra xem Enemy đã phóng tia chưa
-    private bool isDead = false; // Kiểm tra trạng thái chết
+    private bool isShooting = false; // Kiểm tra trạng thái đang bắn
+    private bool isDead = false; // Trạng thái chết
     public float DeadSpeed = 0f;
 
     void Start()
@@ -30,23 +30,15 @@ public class BossXanh : MonoBehaviour
 
         // Đặt hướng di chuyển ban đầu sang trái
         speed = -Mathf.Abs(speed);
-        spriteRenderer.flipX = true; // Quay mặt trái
+        spriteRenderer.flipX = true; // Quay mặt sang trái
 
-        // Bắt đầu Coroutine phóng tia laser mỗi 3 giây
+        // Bắt đầu Coroutine bắn mỗi 3 giây
         StartCoroutine(ShootLaserEvery3Seconds());
     }
 
     void Update()
     {
-        if (isDead) return; // Nếu Boss đã chết, không thực hiện logic nào khác
-
-        float distanceToPlayerX = Mathf.Abs(transform.position.x - player.position.x);
-        float distanceToPlayerY = Mathf.Abs(transform.position.y - player.position.y);
-
-        if (distanceToPlayerX <= shootingRange && distanceToPlayerY <= maxYDifference && !isShooting && IsPlayerInFront())
-        {
-            StartCoroutine(FireEnergyWave());
-        }
+        if (isDead) return; // Nếu Boss đã chết, không làm gì cả
 
         if (!animator.GetBool("Shield"))
         {
@@ -54,28 +46,16 @@ public class BossXanh : MonoBehaviour
         }
     }
 
-    private bool IsPlayerInFront()
-    {
-        if (spriteRenderer.flipX)
-        {
-            return player.position.x < transform.position.x;
-        }
-        else
-        {
-            return player.position.x > transform.position.x;
-        }
-    }
-
     private void MoveEnemy()
     {
         if (transform.position.x >= rightBoundary)
         {
-            speed = -Mathf.Abs(speed);
+            speed = -Mathf.Abs(speed); // Di chuyển sang trái
             spriteRenderer.flipX = true;
         }
         else if (transform.position.x <= leftBoundary)
         {
-            speed = Mathf.Abs(speed);
+            speed = Mathf.Abs(speed); // Di chuyển sang phải
             spriteRenderer.flipX = false;
         }
 
@@ -85,20 +65,24 @@ public class BossXanh : MonoBehaviour
     private IEnumerator FireEnergyWave()
     {
         isShooting = true;
+
+        // Xác định vị trí spawn của tia chưởng lực
         Vector3 spawnPosition = transform.position + (spriteRenderer.flipX ? Vector3.left : Vector3.right) * 1f;
 
+        // Tạo tia chưởng lực
         GameObject energyWave = Instantiate(energyWavePrefab, spawnPosition, Quaternion.identity);
         energyWave.GetComponent<Rigidbody2D>().velocity = (spriteRenderer.flipX ? Vector2.left : Vector2.right) * energyWaveSpeed;
 
+        // Tạm dừng di chuyển trong lúc bắn
         speed = 0f;
         animator.SetTrigger("Attack");
 
-        yield return new WaitForSeconds(1f);
+        yield return new WaitForSeconds(1f); // Thời gian tạm nghỉ khi bắn
 
         speed = 1f;
         isShooting = false;
 
-        Destroy(energyWave, 2f);
+        Destroy(energyWave, 2f); // Xóa tia chưởng lực sau 2 giây
     }
 
     private IEnumerator ShootLaserEvery3Seconds()
@@ -107,14 +91,35 @@ public class BossXanh : MonoBehaviour
         {
             if (isDead) yield break;
 
-            float distanceToPlayerX = Mathf.Abs(transform.position.x - player.position.x);
-            float distanceToPlayerY = Mathf.Abs(transform.position.y - player.position.y);
+            // Tìm tất cả các đối tượng Player trong game
+            GameObject[] players = GameObject.FindGameObjectsWithTag("Player");
 
-            if (distanceToPlayerX <= shootingRange && distanceToPlayerY <= maxYDifference && !isShooting && IsPlayerInFront())
+            foreach (GameObject player in players)
             {
-                StartCoroutine(FireEnergyWave());
+                float distanceToPlayerX = Mathf.Abs(transform.position.x - player.transform.position.x);
+                float distanceToPlayerY = Mathf.Abs(transform.position.y - player.transform.position.y);
+
+                // Kiểm tra nếu Player trong tầm bắn trên trục X và chênh lệch Y không vượt quá maxYDifference
+                if (distanceToPlayerX <= shootingRange && distanceToPlayerY <= maxYDifference && !isShooting && IsPlayerInFront(player))
+                {
+                    StartCoroutine(FireEnergyWave());
+                    break; // Chỉ bắn vào một mục tiêu
+                }
             }
-            yield return new WaitForSeconds(3f);
+
+            yield return new WaitForSeconds(3f); // Chờ 3 giây trước lần bắn tiếp theo
+        }
+    }
+
+    private bool IsPlayerInFront(GameObject player)
+    {
+        if (spriteRenderer.flipX)
+        {
+            return player.transform.position.x < transform.position.x;
+        }
+        else
+        {
+            return player.transform.position.x > transform.position.x;
         }
     }
 
@@ -169,19 +174,17 @@ public class BossXanh : MonoBehaviour
         isDead = true;
         speed = 0f;
 
-        animator.SetTrigger("Die"); // Kích hoạt Animation Die
-        yield return new WaitForSeconds(1.5f); // Chờ animation Die hoàn tất
+        animator.SetTrigger("Die");
+        yield return new WaitForSeconds(1.5f);
 
-        // Xóa hoặc vô hiệu hóa BoxCollider của Boss
         BoxCollider2D boxCollider = GetComponent<BoxCollider2D>();
         if (boxCollider != null)
         {
-            Destroy(boxCollider); // Xóa BoxCollider
+            Destroy(boxCollider);
         }
 
-        // Hạ xác Boss xuống 1f
         float targetY = transform.position.y - 1f;
-        float duration = 0.5f; // Thời gian di chuyển (0.5s)
+        float duration = 0.5f;
         float elapsedTime = 0f;
         Vector3 startPosition = transform.position;
         Vector3 targetPosition = new Vector3(transform.position.x, targetY, transform.position.z);
@@ -193,14 +196,12 @@ public class BossXanh : MonoBehaviour
             yield return null;
         }
 
-        // Đảm bảo vị trí cuối cùng chính xác
         transform.position = targetPosition;
 
-        // Gọi KeyDrop script để tạo chìa khóa
         KeyScritp keyDrop = GetComponent<KeyScritp>();
         if (keyDrop != null)
         {
-            keyDrop.DropKey(transform.position); // Tạo chìa khóa tại vị trí hiện tại
+            keyDrop.DropKey(transform.position);
         }
         else
         {

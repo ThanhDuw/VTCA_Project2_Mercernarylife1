@@ -190,6 +190,10 @@ PrefabInstance:
       propertyPath: m_Size.x
       value: 17.490658
       objectReference: {fileID: 0}
+    - target: {fileID: 3322943115010743360, guid: 76de7a48915ba6540810e4f1674df897, type: 3}
+      propertyPath: shootingRange
+      value: 3
+      objectReference: {fileID: 0}
     - target: {fileID: 4123279873794070896, guid: 76de7a48915ba6540810e4f1674df897, type: 3}
       propertyPath: m_Name
       value: BossBG
@@ -206,16 +210,26 @@ PrefabInstance:
       propertyPath: m_SpriteTilingProperty.newSize.x
       value: 17.490658
       objectReference: {fileID: 0}
+    - target: {fileID: 5976412970090016665, guid: 76de7a48915ba6540810e4f1674df897, type: 3}
+      propertyPath: shootingRange
+      value: 3
+      objectReference: {fileID: 0}
     - target: {fileID: 6068508200170022546, guid: 76de7a48915ba6540810e4f1674df897, type: 3}
       propertyPath: m_LocalPosition.x
       value: -13.7448
+      objectReference: {fileID: 0}
+    - target: {fileID: 7029851264813052465, guid: 76de7a48915ba6540810e4f1674df897, type: 3}
+      propertyPath: shootingRange
+      value: 3
       objectReference: {fileID: 0}
     - target: {fileID: 7156771831238515985, guid: 76de7a48915ba6540810e4f1674df897, type: 3}
       propertyPath: m_Size.y
       value: 13.349301
       objectReference: {fileID: 0}
     m_RemovedComponents: []
-    m_RemovedGameObjects: []
+    m_RemovedGameObjects:
+    - {fileID: 3424522227153501737, guid: 76de7a48915ba6540810e4f1674df897, type: 3}
+    - {fileID: 8048356896361679666, guid: 76de7a48915ba6540810e4f1674df897, type: 3}
     m_AddedGameObjects:
     - targetCorrespondingSourceObject: {fileID: 1570056287728565393, guid: 76de7a48915ba6540810e4f1674df897, type: 3}
       insertIndex: 3
@@ -522,6 +536,79 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1001 &962040692
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    serializedVersion: 3
+    m_TransformParent: {fileID: 0}
+    m_Modifications:
+    - target: {fileID: 198175566556527932, guid: 6ab5f0fd55fed9c42a658ec4277f5707, type: 3}
+      propertyPath: m_Name
+      value: Military Incursion Bot Sprite Sheet_0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1299044878857271612, guid: 6ab5f0fd55fed9c42a658ec4277f5707, type: 3}
+      propertyPath: m_Size.y
+      value: 2.1884499
+      objectReference: {fileID: 0}
+    - target: {fileID: 1299044878857271612, guid: 6ab5f0fd55fed9c42a658ec4277f5707, type: 3}
+      propertyPath: m_Offset.y
+      value: -0.0057750344
+      objectReference: {fileID: 0}
+    - target: {fileID: 2536383444186314007, guid: 6ab5f0fd55fed9c42a658ec4277f5707, type: 3}
+      propertyPath: m_LocalScale.x
+      value: 1.9808171
+      objectReference: {fileID: 0}
+    - target: {fileID: 2536383444186314007, guid: 6ab5f0fd55fed9c42a658ec4277f5707, type: 3}
+      propertyPath: m_LocalScale.y
+      value: 1.8456864
+      objectReference: {fileID: 0}
+    - target: {fileID: 2536383444186314007, guid: 6ab5f0fd55fed9c42a658ec4277f5707, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 2.1284
+      objectReference: {fileID: 0}
+    - target: {fileID: 2536383444186314007, guid: 6ab5f0fd55fed9c42a658ec4277f5707, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: -0.8166
+      objectReference: {fileID: 0}
+    - target: {fileID: 2536383444186314007, guid: 6ab5f0fd55fed9c42a658ec4277f5707, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2536383444186314007, guid: 6ab5f0fd55fed9c42a658ec4277f5707, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 2536383444186314007, guid: 6ab5f0fd55fed9c42a658ec4277f5707, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2536383444186314007, guid: 6ab5f0fd55fed9c42a658ec4277f5707, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2536383444186314007, guid: 6ab5f0fd55fed9c42a658ec4277f5707, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2536383444186314007, guid: 6ab5f0fd55fed9c42a658ec4277f5707, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2536383444186314007, guid: 6ab5f0fd55fed9c42a658ec4277f5707, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2536383444186314007, guid: 6ab5f0fd55fed9c42a658ec4277f5707, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+    m_RemovedGameObjects: []
+    m_AddedGameObjects: []
+    m_AddedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: 6ab5f0fd55fed9c42a658ec4277f5707, type: 3}
 --- !u!1 &1012892615
 GameObject:
   m_ObjectHideFlags: 0
@@ -1110,3 +1197,4 @@ SceneRoots:
   - {fileID: 876562809}
   - {fileID: 1780682881}
   - {fileID: 41877519}
+  - {fileID: 962040692}
