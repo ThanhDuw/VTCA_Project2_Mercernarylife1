@@ -172,6 +172,13 @@ public class BossXanh : MonoBehaviour
         animator.SetTrigger("Die"); // Kích hoạt Animation Die
         yield return new WaitForSeconds(1.5f); // Chờ animation Die hoàn tất
 
+        // Xóa hoặc vô hiệu hóa BoxCollider của Boss
+        BoxCollider2D boxCollider = GetComponent<BoxCollider2D>();
+        if (boxCollider != null)
+        {
+            Destroy(boxCollider); // Xóa BoxCollider
+        }
+
         // Hạ xác Boss xuống 1f
         float targetY = transform.position.y - 1f;
         float duration = 0.5f; // Thời gian di chuyển (0.5s)
@@ -189,6 +196,15 @@ public class BossXanh : MonoBehaviour
         // Đảm bảo vị trí cuối cùng chính xác
         transform.position = targetPosition;
 
-        // Boss sẽ không bị xóa, giữ nguyên xác tại vị trí này
+        // Gọi KeyDrop script để tạo chìa khóa
+        KeyScritp keyDrop = GetComponent<KeyScritp>();
+        if (keyDrop != null)
+        {
+            keyDrop.DropKey(transform.position); // Tạo chìa khóa tại vị trí hiện tại
+        }
+        else
+        {
+            Debug.LogWarning("KeyDrop script is not attached to Boss.");
+        }
     }
 }
