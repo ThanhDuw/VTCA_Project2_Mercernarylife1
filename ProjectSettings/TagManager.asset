@@ -48,3 +48,9 @@ TagManager:
   - name: Default
     uniqueID: 0
     locked: 0
+  - name: Music
+    uniqueID: 1350960029
+    locked: 0
+  - name: Panel
+    uniqueID: 3699179981
+    locked: 0

@@ -19,7 +19,7 @@ public class CameraFollow : MonoBehaviour
         }
         else
         {
-            //Destroy(gameObject);
+            Destroy(gameObject);
         }
     }
 }
