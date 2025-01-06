@@ -3,43 +3,46 @@ using UnityEngine.UI;
 
 public class AudioManager : MonoBehaviour
 {
-    [Header("Audio Sources")]
-    public AudioSource musicSource; // Nguồn nhạc (Music)
-    public AudioSource soundSource; // Nguồn âm thanh (Sound)
+    [Header("Audio Settings")]
+    public AudioSource musicAudioSource;  // Nguồn nhạc
 
-    [Header("UI Sliders")]
-    public Slider musicSlider; // Slider điều chỉnh âm lượng Music
-    public Slider soundSlider; // Slider điều chỉnh âm lượng Sound
+    [Header("UI Elements")]
+    public Slider masterVolumeSlider;     // Slider âm lượng tổng thể
+    public Slider musicVolumeSlider;      // Slider âm lượng nhạc
 
     private void Start()
     {
-        // Khởi tạo giá trị Slider dựa trên âm lượng hiện tại
-        if (musicSource != null)
-        {
-            musicSlider.value = musicSource.volume;
-            musicSlider.onValueChanged.AddListener(SetMusicVolume);
-        }
+        float savedMasterVolume = PlayerPrefs.GetFloat("MasterVolume", 1f);
+        float savedMusicVolume = PlayerPrefs.GetFloat("MusicVolume", 1f);
 
-        if (soundSource != null)
-        {
-            soundSlider.value = soundSource.volume;
-            soundSlider.onValueChanged.AddListener(SetSoundVolume);
-        }
+        masterVolumeSlider.value = savedMasterVolume;
+        musicVolumeSlider.value = savedMusicVolume;
+
+        UpdateMasterVolume(savedMasterVolume);
+        UpdateMusicVolume(savedMusicVolume);
+
+        masterVolumeSlider.onValueChanged.AddListener(UpdateMasterVolume);
+        musicVolumeSlider.onValueChanged.AddListener(UpdateMusicVolume);
     }
 
-    public void SetMusicVolume(float volume)
+    private void UpdateMasterVolume(float value)
     {
-        if (musicSource != null)
-        {
-            musicSource.volume = volume;
-        }
+        AudioListener.volume = value;
+        PlayerPrefs.SetFloat("MasterVolume", value);
     }
 
-    public void SetSoundVolume(float volume)
+    private void UpdateMusicVolume(float value)
     {
-        if (soundSource != null)
+        if (musicAudioSource != null)
         {
-            soundSource.volume = volume;
+            musicAudioSource.volume = value;
         }
+        PlayerPrefs.SetFloat("MusicVolume", value);
+    }
+
+    private void OnDestroy()
+    {
+        masterVolumeSlider.onValueChanged.RemoveListener(UpdateMasterVolume);
+        musicVolumeSlider.onValueChanged.RemoveListener(UpdateMusicVolume);
     }
 }
