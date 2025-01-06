@@ -6,7 +6,8 @@ public class BossXanh : MonoBehaviour
     [SerializeField] private float speed = 2f; // Tốc độ di chuyển của Boss
     [SerializeField] private float boundary; // Khoảng cách di chuyển tối đa
     [SerializeField] private SpriteRenderer spriteRenderer;
-    [SerializeField] private float hp = 30; // Máu của Boss
+    [SerializeField] private int maxHp = 500; // Máu của Boss
+    [SerializeField] private int currentHp;
     [SerializeField] private float shootingRange = 4f; // Tầm bắn trên trục X
     [SerializeField] private float maxYDifference = 1.5f; // Chênh lệch tối đa trên trục Y để Boss tấn công
     [SerializeField] private GameObject energyWavePrefab; // Prefab của tia chưởng lực
@@ -20,6 +21,7 @@ public class BossXanh : MonoBehaviour
     private bool isDead = false; // Trạng thái chết
     public float DeadSpeed = 0f;
 
+    public Boss_HpBar hpBar;
     void Start()
     {
         rb2D = GetComponent<Rigidbody2D>();
@@ -28,6 +30,8 @@ public class BossXanh : MonoBehaviour
         spriteRenderer = GetComponent<SpriteRenderer>();
         animator = GetComponent<Animator>();
 
+        currentHp = maxHp;
+        hpBar.SetMaxHealth(maxHp);
         // Đặt hướng di chuyển ban đầu sang trái
         speed = -Mathf.Abs(speed);
         spriteRenderer.flipX = true; // Quay mặt sang trái
@@ -148,14 +152,15 @@ public class BossXanh : MonoBehaviour
             animator.SetBool("Shield", true);
             StartCoroutine(StopShieldAnimation());
 
-            if (hp <= 0)
+            if (currentHp <= 0)
             {
                 StartCoroutine(HandleDeath());
                 transform.Translate(Vector3.up * DeadSpeed * Time.deltaTime);
             }
             else
             {
-                hp -= 10;
+                currentHp -= 10;
+                hpBar.SetHealth(currentHp);
                 Debug.Log("-10 HP");
             }
         }

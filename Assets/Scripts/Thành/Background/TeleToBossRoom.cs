@@ -22,7 +22,9 @@ public class TeleToBossRoom : MonoBehaviour
                 color.a = 0f; // Đặt alpha thành 0 (trong suốt)
                 playerRenderer.color = color;
             }
-           
+            PlayerPrefs.SetFloat("SpawnX", playerSpawnPosition.x);
+            PlayerPrefs.SetFloat("SpawnY", playerSpawnPosition.y);
+            PlayerPrefs.SetFloat("SpawnZ", playerSpawnPosition.z);
             DontDestroyOnLoad(other.gameObject);
 
             StartCoroutine(LoadSceneWithTransition(1f, SceneManager.GetActiveScene().buildIndex + 1, other));
@@ -49,18 +51,18 @@ public class TeleToBossRoom : MonoBehaviour
             color.a = 1f;
             playerRenderer.color = color;
         }
-        // Đặt vị trí spawn cho người chơi
-        Vector3 spawnPosition = new Vector3(
-            PlayerPrefs.GetFloat("SpawnX"),
-            PlayerPrefs.GetFloat("SpawnY"),
-            PlayerPrefs.GetFloat("SpawnZ")
-        );
 
-        // Tìm đối tượng người chơi và đặt vị trí
         GameObject player = GameObject.FindGameObjectWithTag("Player");
         if (player != null)
         {
+            Vector3 spawnPosition = new Vector3(
+                PlayerPrefs.GetFloat("SpawnX", playerSpawnPosition.x), // Nếu không có giá trị, lấy giá trị mặc định
+                PlayerPrefs.GetFloat("SpawnY", playerSpawnPosition.y),
+                PlayerPrefs.GetFloat("SpawnZ", playerSpawnPosition.z)
+            );
+
             player.transform.position = spawnPosition;
+
         }
 
     }
