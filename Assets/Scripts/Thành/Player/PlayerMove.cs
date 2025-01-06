@@ -1,4 +1,4 @@
-using System.Collections;
+﻿using System.Collections;
 using System.Collections.Generic;
 using Unity.VisualScripting;
 using UnityEngine;
@@ -15,6 +15,18 @@ public class PlayerMove : MonoBehaviour
     bool jump = false;
     bool crouch = false;
 
+    public GameObject shield;       // Khiên (GameObject)
+    private Animator shieldAnimator; // Animator của khiên
+    public bool isDefending = false; // Trạng thái phòng thủ
+    public PlayerStats playerStats;
+
+    
+    void Start()
+    {
+        shield.SetActive(false);
+        shieldAnimator = shield.GetComponent<Animator>();
+
+    }
     // Update is called once per frame
     void Update()
     {
@@ -34,7 +46,34 @@ public class PlayerMove : MonoBehaviour
         {
             crouch= false;
         }
+
+        if (Input.GetKeyDown(KeyCode.F))
+        {
+            isDefending = true;
+            shield.SetActive(true);
+            if (shieldAnimator != null)
+            {
+                shieldAnimator.SetBool("IsOn", true); // Kích hoạt animation của khiên
+                playerStats.UseShield();
+            }
+
+        }
+
+        // Khi thả phím F, tắt phòng thủ
+        if (Input.GetKeyUp(KeyCode.F))
+        {
+            isDefending = false;
+
+            if (shieldAnimator != null)
+            {
+                shieldAnimator.SetBool("IsOn", false); // Ngưng animation của khiên
+            }
+            shield.SetActive(false);
+            playerStats.EndShield();
+        }
+     
     }
+    
     public void OnLanding()
     { 
         animator.SetBool("IsJumping", false);
