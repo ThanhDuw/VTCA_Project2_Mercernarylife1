@@ -8,11 +8,17 @@ public class PlayerStats : MonoBehaviour
     public int currentHealth;
 
     public Player_Hpbar healthBar;
+
+    public Animator animator;
+
+    public GameObject gameOver;
     // Start is called before the first frame update
     void Start()
     {
         currentHealth = maxHealth;
         healthBar.SetMaxHealth(maxHealth);
+
+        gameOver.SetActive(false);
     }
 
     // Update is called once per frame
@@ -24,21 +30,16 @@ public class PlayerStats : MonoBehaviour
         }
     }
 
-    private void OnTriggerEnter2D(Collider2D collision)
-    {
-        if (collision.gameObject.CompareTag("EnemyBullet"))
-        {
-            TakeDamage(10);
-        }
-       
-    }
     public void TakeDamage(int damage)
     {
         currentHealth -= damage;
         healthBar.SetHealth(currentHealth);
+        animator.SetTrigger("PlayerHit");
         if (currentHealth <= 0)
         {
             Die();
+            gameOver.SetActive(true);
+            Time.timeScale = 0;
         }
     }
     private void Die()
