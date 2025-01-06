@@ -18,10 +18,19 @@ public class PlayerStats : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if(Input.GetKeyUp(KeyCode.G))
+        if (Input.GetKeyUp(KeyCode.G))
         {
             TakeDamage(20);
         }
+    }
+
+    private void OnTriggerEnter2D(Collider2D collision)
+    {
+        if (collision.gameObject.CompareTag("EnemyBullet"))
+        {
+            TakeDamage(10);
+        }
+       
     }
     public void TakeDamage(int damage)
     {
