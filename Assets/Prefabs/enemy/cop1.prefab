@@ -16,7 +16,7 @@ GameObject:
   - component: {fileID: 1232610302022210235}
   m_Layer: 0
   m_Name: cop1
-  m_TagString: Untagged
+  m_TagString: Enemy
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -201,5 +201,4 @@ MonoBehaviour:
   fireRate: 1
   bulletPrefab: {fileID: 2383671114505269089, guid: 47f19215e0592b14a84eb0202ed8baec, type: 3}
   bulletSpeed: 10
-  player: {fileID: 8255046728209824681, guid: a6cb213c435a45847ab9a920531a878f, type: 3}
   destructionFX: {fileID: 1916644535388506190, guid: 04729440bdccdca499071e97a6dd6ecd, type: 3}

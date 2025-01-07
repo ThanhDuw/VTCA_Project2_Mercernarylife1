@@ -4,7 +4,7 @@ using UnityEngine;
 public class Bullet : MonoBehaviour
 {
     public float speed = 20f;
-    public float damage = 10f;
+    public int damage = 10;
 
     public Rigidbody2D rb;
     public GameObject impactEffect;
@@ -22,5 +22,9 @@ public class Bullet : MonoBehaviour
         }
         Instantiate(impactEffect, transform.position, transform.rotation);
         Destroy(gameObject);
+    }
+    public void LevelUp()
+    {
+        damage += 5;
     }
 }

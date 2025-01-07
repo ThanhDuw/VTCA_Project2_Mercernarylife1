@@ -20,6 +20,8 @@ public class EnemyMovement : MonoBehaviour
 
     public GameObject destructionFX;
 
+    public int xpReward = 50;
+
     void Start()
     {
         rb2D = GetComponent<Rigidbody2D>();
@@ -125,6 +127,11 @@ public class EnemyMovement : MonoBehaviour
 
     private void Die()
     {
+        PlayerStats playerStats = FindObjectOfType<PlayerStats>();
+        if (playerStats != null)
+        {
+            playerStats.AddXP(xpReward);
+        }
         Instantiate(destructionFX, transform.position, Quaternion.identity);
         Destroy(gameObject);
     }

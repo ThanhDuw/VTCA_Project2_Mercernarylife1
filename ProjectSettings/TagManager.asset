@@ -11,6 +11,8 @@ TagManager:
   - Bullet
   - SpawnPosition
   - EnemyBullet
+  - Shield
+  - Enemy
   layers:
   - Default
   - TransparentFX

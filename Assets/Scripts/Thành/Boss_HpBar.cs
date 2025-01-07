@@ -2,7 +2,8 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
-public class Player_Hpbar : MonoBehaviour
+
+public class Boss_HpBar : MonoBehaviour
 {
     public Slider slider;
     public void SetMaxHealth(int health)
@@ -14,5 +15,4 @@ public class Player_Hpbar : MonoBehaviour
     {
         slider.value = health;
     }
-    
 }

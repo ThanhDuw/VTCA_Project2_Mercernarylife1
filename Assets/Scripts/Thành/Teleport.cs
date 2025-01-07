@@ -34,14 +34,19 @@ public class Teleport : MonoBehaviour
             }
             truckRun.SetBool("Run", true);
             truckFire.Play();
-            //DontDestroyOnLoad(other.gameObject);
-         
+
+            PlayerPrefs.SetFloat("SpawnX", playerSpawnPosition.x);
+            PlayerPrefs.SetFloat("SpawnY", playerSpawnPosition.y);
+            PlayerPrefs.SetFloat("SpawnZ", playerSpawnPosition.z);
+
+            DontDestroyOnLoad(other.gameObject);
+
             StartCoroutine(LoadSceneWithTransition(1f,SceneManager.GetActiveScene().buildIndex + 1, other));
             
         }
 
     }
-    private IEnumerator LoadSceneWithTransition(float waitTime,int levelIndex, Collider2D other)
+    private IEnumerator LoadSceneWithTransition(float waitTime, int levelIndex, Collider2D other)
     {
         yield return new WaitForSeconds(waitTime);
         // Bật animation chuyển cảnh
@@ -53,29 +58,27 @@ public class Teleport : MonoBehaviour
 
         // Load scene mới
         SceneManager.LoadScene(levelIndex);
-        
+
         SpriteRenderer playerRenderer = other.GetComponent<SpriteRenderer>();
         if (playerRenderer != null)
         {
             Color color = playerRenderer.color;
-            color.a = 1f; 
+            color.a = 1f;
             playerRenderer.color = color;
         }
-        
-        // Đặt vị trí spawn cho người chơi
-        Vector3 spawnPosition = new Vector3(
-            PlayerPrefs.GetFloat("SpawnX"),
-            PlayerPrefs.GetFloat("SpawnY"),
-            PlayerPrefs.GetFloat("SpawnZ")
-        );
 
-        // Tìm đối tượng người chơi và đặt vị trí
         GameObject player = GameObject.FindGameObjectWithTag("Player");
         if (player != null)
         {
-            player.transform.position = spawnPosition;
-        }
+            Vector3 spawnPosition = new Vector3(
+                PlayerPrefs.GetFloat("SpawnX", playerSpawnPosition.x), // Nếu không có giá trị, lấy giá trị mặc định
+                PlayerPrefs.GetFloat("SpawnY", playerSpawnPosition.y),
+                PlayerPrefs.GetFloat("SpawnZ", playerSpawnPosition.z)
+            );
 
+            player.transform.position = spawnPosition;
+
+        }
     }
 
 }
