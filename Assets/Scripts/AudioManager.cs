@@ -21,6 +21,12 @@ public class AudioManager : MonoBehaviour
         UpdateMasterVolume(savedMasterVolume);
         UpdateMusicVolume(savedMusicVolume);
 
+        // Đảm bảo nhạc có thể lặp lại
+        if (musicAudioSource != null)
+        {
+            musicAudioSource.loop = true;  // Bật chế độ lặp lại cho âm nhạc
+        }
+
         masterVolumeSlider.onValueChanged.AddListener(UpdateMasterVolume);
         musicVolumeSlider.onValueChanged.AddListener(UpdateMusicVolume);
     }

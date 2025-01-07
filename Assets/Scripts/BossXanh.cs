@@ -79,7 +79,7 @@ public class BossXanh : MonoBehaviour
 
         // Tạm dừng di chuyển trong lúc bắn
         speed = 0f;
-        animator.SetTrigger("Attack");
+        /*animator.SetTrigger("Attack");*/
 
         yield return new WaitForSeconds(1f); // Thời gian tạm nghỉ khi bắn
 
