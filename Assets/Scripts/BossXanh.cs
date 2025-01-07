@@ -7,7 +7,7 @@ public class BossXanh : MonoBehaviour
     [SerializeField] private float boundary; // Khoảng cách di chuyển tối đa
     [SerializeField] private SpriteRenderer spriteRenderer;
     [SerializeField] private int maxHp = 500; // Máu của Boss
-    [SerializeField] private int currentHp;
+    [SerializeField] public int currentHp;
     [SerializeField] private float shootingRange = 4f; // Tầm bắn trên trục X
     [SerializeField] private float maxYDifference = 1.5f; // Chênh lệch tối đa trên trục Y để Boss tấn công
     [SerializeField] private GameObject energyWavePrefab; // Prefab của tia chưởng lực
@@ -79,13 +79,13 @@ public class BossXanh : MonoBehaviour
 
         // Tạm dừng di chuyển trong lúc bắn
         speed = 0f;
-        /*animator.SetTrigger("Attack");*/
+        animator.SetBool("Attack", true);
 
         yield return new WaitForSeconds(1f); // Thời gian tạm nghỉ khi bắn
 
         speed = 1f;
         isShooting = false;
-
+        animator.SetBool("Attack", false);
         Destroy(energyWave, 2f); // Xóa tia chưởng lực sau 2 giây
     }
 
@@ -150,6 +150,7 @@ public class BossXanh : MonoBehaviour
             }
 
             animator.SetBool("Shield", true);
+            animator.SetBool("Attack", false);
             StartCoroutine(StopShieldAnimation());
 
             if (currentHp <= 0)
@@ -164,6 +165,7 @@ public class BossXanh : MonoBehaviour
                 Debug.Log("-10 HP");
             }
         }
+        
     }
 
     private IEnumerator StopShieldAnimation()
