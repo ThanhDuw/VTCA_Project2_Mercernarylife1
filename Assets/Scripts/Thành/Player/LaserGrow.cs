@@ -6,9 +6,9 @@ using UnityEngine;
 public class LaserGrow : MonoBehaviour
 {
     public int damagePerSecond = 10; // Lượng sát thương mỗi giây
-    public int damageInterval = 0; // Thời gian giữa mỗi lần gây sát thương (0.2 giây)
+    public float damageInterval = 0.2f; // Thời gian giữa mỗi lần gây sát thương (0.2 giây)
     private LayerMask targetLayer;     // Lớp đối tượng bị ảnh hưởng (ví dụ: Enemy)
-    
+
     private void OnTriggerStay2D(Collider2D collision)
     {
         // Kiểm tra nếu đối tượng thuộc tag "Enemy"
@@ -24,18 +24,6 @@ public class LaserGrow : MonoBehaviour
 
 
         }
-        if (collision.CompareTag("Boss"))
-        {
-            BossXanh boss= collision.GetComponent<BossXanh>();
-            if( boss != null)
-            {
-                boss.currentHp -= damagePerSecond*damageInterval;
-                boss.hpBar.SetHealth(boss.currentHp);
-            }
-        }
-    }
-   public void Damage()
-    {
-        float takeDamage=damageInterval*damagePerSecond;
-    }
+    } 
+    
 }

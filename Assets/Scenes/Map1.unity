@@ -8812,7 +8812,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 1232610302022210235, guid: 56b1f49ab2643d54faa0a0b28736fb6b, type: 3}
       propertyPath: hp
-      value: 30
+      value: 500
       objectReference: {fileID: 0}
     - target: {fileID: 1232610302022210235, guid: 56b1f49ab2643d54faa0a0b28736fb6b, type: 3}
       propertyPath: xpReward
