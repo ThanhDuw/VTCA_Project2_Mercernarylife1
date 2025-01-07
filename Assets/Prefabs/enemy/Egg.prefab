@@ -16,7 +16,7 @@ GameObject:
   - component: {fileID: 2058563611145114294}
   m_Layer: 0
   m_Name: Egg
-  m_TagString: Untagged
+  m_TagString: Enemy
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -172,11 +172,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e0d7ceace0af63a488c534d71bda48d8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  player: {fileID: 6834471625742726225, guid: 873c066afc9ff374eabbb8a5d0955a8f, type: 3}
   bulletPrefab: {fileID: 5833226655581452709, guid: b9f06996a627b444a8299e0fc2177d6b, type: 3}
-  attackRange: 3
+  attackRange: 5
   bulletSpeed: 5
-  maxHP: 30
+  maxHP: 20
+  xpReward: 50
+  destructionFX: {fileID: 1916644535388506190, guid: 04729440bdccdca499071e97a6dd6ecd, type: 3}
 --- !u!95 &2058563611145114294
 Animator:
   serializedVersion: 5

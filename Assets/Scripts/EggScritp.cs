@@ -11,7 +11,9 @@ public class EggScritp : MonoBehaviour
     private int currentHP;
     private bool isAttacking = false;
     private Animator animator;
+    public int xpReward = 50;
 
+    public GameObject destructionFX;
     void Start()
     {
         currentHP = maxHP;
@@ -74,7 +76,12 @@ public class EggScritp : MonoBehaviour
 
     private void Die()
     {
-        Debug.Log("Enemy Died!");
+        PlayerStats playerStats = FindObjectOfType<PlayerStats>();
+        if (playerStats != null)
+        {
+            playerStats.AddXP(xpReward);
+        }
+        Instantiate(destructionFX, transform.position, Quaternion.identity);
         Destroy(gameObject);
     }
 
