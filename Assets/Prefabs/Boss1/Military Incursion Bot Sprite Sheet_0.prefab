@@ -15,7 +15,7 @@ GameObject:
   - component: {fileID: 4683300023127290640}
   - component: {fileID: 1299044878857271612}
   - component: {fileID: 231011892287368202}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Military Incursion Bot Sprite Sheet_0
   m_TagString: Boss
   m_Icon: {fileID: 0}

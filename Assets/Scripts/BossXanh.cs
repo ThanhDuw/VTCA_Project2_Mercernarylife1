@@ -130,10 +130,10 @@ public class BossXanh : MonoBehaviour
     private void OnTriggerEnter2D(Collider2D collision)
     {
         if (isDead) return;
-
+        
         if (animator.GetBool("Shield"))
-        {
-            return;
+        {          
+            return;            
         }
 
         if (collision.gameObject.CompareTag("Bullet"))

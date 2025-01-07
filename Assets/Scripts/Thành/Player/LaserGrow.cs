@@ -34,5 +34,8 @@ public class LaserGrow : MonoBehaviour
             }
         }
     }
-   
+   public void Damage()
+    {
+        float takeDamage=damageInterval*damagePerSecond;
+    }
 }
