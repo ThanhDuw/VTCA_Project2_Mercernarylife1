@@ -330,6 +330,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Military Incursion Bot Sprite Sheet_0
       objectReference: {fileID: 0}
+    - target: {fileID: 231011892287368202, guid: 6ab5f0fd55fed9c42a658ec4277f5707, type: 3}
+      propertyPath: keyPrefab
+      value: 
+      objectReference: {fileID: 2073623602886546466, guid: 702ee42a05188e64fb1750ffc6a718fa, type: 3}
     - target: {fileID: 2536383444186314007, guid: 6ab5f0fd55fed9c42a658ec4277f5707, type: 3}
       propertyPath: m_LocalPosition.x
       value: 1.8188889
@@ -470,7 +474,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3015177726441288540, guid: 45cf7715409264e4e9318231f72386f2, type: 3}
       propertyPath: m_IsActive
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 3613544257978628726, guid: 45cf7715409264e4e9318231f72386f2, type: 3}
       propertyPath: m_LocalPosition.x
