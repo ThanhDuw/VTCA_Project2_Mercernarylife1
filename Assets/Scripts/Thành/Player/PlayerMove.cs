@@ -19,8 +19,10 @@ public class PlayerMove : MonoBehaviour
     private Animator shieldAnimator; // Animator của khiên
     public bool isDefending = false; // Trạng thái phòng thủ
     public PlayerStats playerStats;
+    public GameObject playerInfoPanel; // Đối tượng panel để hiển thị thông tin
+    public KeyCode toggleKey = KeyCode.E;
 
-    
+
     void Start()
     {
         shield.SetActive(false);
@@ -71,7 +73,13 @@ public class PlayerMove : MonoBehaviour
             shield.SetActive(false);
             playerStats.EndShield();
         }
-     
+        if (Input.GetKeyDown(toggleKey))
+        {
+            // Chuyển trạng thái hiển thị panel (tắt/mở)
+            bool isActive = playerInfoPanel.activeSelf;
+            playerInfoPanel.SetActive(!isActive);
+        }
+
     }
     
     public void OnLanding()

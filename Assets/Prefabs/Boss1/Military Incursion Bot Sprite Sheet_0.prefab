@@ -17,7 +17,7 @@ GameObject:
   - component: {fileID: 231011892287368202}
   m_Layer: 0
   m_Name: Military Incursion Bot Sprite Sheet_0
-  m_TagString: Untagged
+  m_TagString: Enemy
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -125,12 +125,14 @@ MonoBehaviour:
   speed: 2
   boundary: 2
   spriteRenderer: {fileID: 6798073847193088078}
-  hp: 30
+  maxHp: 500
+  currentHp: 0
   shootingRange: 4
   maxYDifference: 1.5
   energyWavePrefab: {fileID: 5613693960996935568, guid: b4da461278834dd428faebdc25eac613, type: 3}
   energyWaveSpeed: 10
   DeadSpeed: 0
+  hpBar: {fileID: 0}
 --- !u!50 &4683300023127290640
 Rigidbody2D:
   serializedVersion: 4
