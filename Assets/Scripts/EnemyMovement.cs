@@ -19,6 +19,7 @@ public class EnemyMovement : MonoBehaviour
     private Rigidbody2D rb2D;
 
     public GameObject destructionFX;
+    public QuestManager questNPC;
 
     public int xpReward = 50;
 
@@ -122,6 +123,10 @@ public class EnemyMovement : MonoBehaviour
         if (hp <= 0)
         {
             Die();
+            if (questNPC != null)
+            {
+                questNPC.AddKill();
+            }
         }
     }
 
@@ -132,6 +137,7 @@ public class EnemyMovement : MonoBehaviour
         {
             playerStats.AddXP(xpReward);
         }
+       
         Instantiate(destructionFX, transform.position, Quaternion.identity);
         Destroy(gameObject);
     }

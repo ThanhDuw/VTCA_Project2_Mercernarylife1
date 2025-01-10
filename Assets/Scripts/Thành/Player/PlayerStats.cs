@@ -27,6 +27,7 @@ public class PlayerStats : MonoBehaviour
     public Text manaText;
     public Text levelText;
     public Text xpText;
+    public Text levelUpText;
 
     // Start is called before the first frame update
     void Start()
@@ -39,45 +40,9 @@ public class PlayerStats : MonoBehaviour
 
         gameOver.SetActive(false);
         UpdateUI();
+        levelUpText.gameObject.SetActive(false);
     }
-    //private void OnEnable()
-    //{
-    //    if (ExpManager.Instance != null)
-    //    {
-    //        ExpManager.Instance.OnExpChange += HandleExperienceChange;
-    //    }
-    //    else
-    //    {
-    //        Debug.LogError("ExpManager.Instance is null! Ensure that ExpManager is properly initialized.");
-    //    }
-    //}
-    //private void OnDisable()
-    //{
-    //    ExpManager.Instance.OnExpChange -= HandleExperienceChange;
-    //}
-    //private void HandleExperienceChange(int newExp)
-    //{
-    //    currentExp += newExp;
-    //    if(currentExp >= maxExp)
-    //    {
-    //        LevelUp();
-    //    }
-    //}
-    //private void LevelUp()
-    //{
-    //    Bullet bullet = GetComponent<Bullet>();
-    //    bullet.LevelUp();
-
-    //    maxMP += 10;
-    //    currentMP= maxMP;
-
-    //    maxHealth += 20;
-    //    currentHealth = maxHealth;
-
-    //    currentLevel++;
-    //    currentExp = 0;
-    //    maxExp += 100;
-    //}
+    
 
     public void UseShield()
     {
@@ -145,12 +110,19 @@ public class PlayerStats : MonoBehaviour
         maxMP += 10;
         currentMP = maxMP;
 
-        //Bullet bulletDamage = GetComponent<Bullet>();
-        //bulletDamage.LevelUp();
+        levelUpText.text = $"Level Up! New Level: {level}";
+        levelUpText.gameObject.SetActive(true);  // Hiển thị thông báo
+
+        // Ẩn thông báo sau 2 giây (hoặc thời gian bạn muốn)
+        Invoke("HideLevelUpText", 2f);
+
 
         Debug.Log("Level Up! New Level: " + level);
     }
-
+    private void HideLevelUpText()
+    {
+        levelUpText.gameObject.SetActive(false); // Ẩn thông báo sau thời gian đã định
+    }
     void UpdateUI()
     {
         if (healthText != null)
