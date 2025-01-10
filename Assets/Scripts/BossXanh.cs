@@ -20,8 +20,11 @@ public class BossXanh : MonoBehaviour
     private bool isShooting = false; // Kiểm tra trạng thái đang bắn
     private bool isDead = false; // Trạng thái chết
     public float DeadSpeed = 0f;
+    private bool isShieldCooldown = false; // Biến kiểm tra xem có đang trong thời gian hồi chiêu khiên không
+    private bool isShieldActive = false; // Biến kiểm tra xem khiên có đang được bật không
 
     public Boss_HpBar hpBar;
+
     void Start()
     {
         rb2D = GetComponent<Rigidbody2D>();
@@ -32,34 +35,35 @@ public class BossXanh : MonoBehaviour
 
         currentHp = maxHp;
         hpBar.SetMaxHealth(maxHp);
-        // Đặt hướng di chuyển ban đầu sang trái
         speed = -Mathf.Abs(speed);
         spriteRenderer.flipX = true; // Quay mặt sang trái
 
-        // Bắt đầu Coroutine bắn mỗi 3 giây
         StartCoroutine(ShootLaserEvery3Seconds());
     }
 
     void Update()
     {
-        if (isDead) return; // Nếu Boss đã chết, không làm gì cả
+        if (isDead) return;
 
-        if (!animator.GetBool("Shield"))
+        if (!animator.GetBool("Shield") && !isShieldCooldown)
         {
             MoveEnemy();
         }
+
+        // Debug trạng thái khiên
+        Debug.Log($"Shield Active: {animator.GetBool("Shield")}, Cooldown: {isShieldCooldown}");
     }
 
     private void MoveEnemy()
     {
         if (transform.position.x >= rightBoundary)
         {
-            speed = -Mathf.Abs(speed); // Di chuyển sang trái
+            speed = -Mathf.Abs(speed);
             spriteRenderer.flipX = true;
         }
         else if (transform.position.x <= leftBoundary)
         {
-            speed = Mathf.Abs(speed); // Di chuyển sang phải
+            speed = Mathf.Abs(speed);
             spriteRenderer.flipX = false;
         }
 
@@ -70,23 +74,19 @@ public class BossXanh : MonoBehaviour
     {
         isShooting = true;
 
-        // Xác định vị trí spawn của tia chưởng lực
         Vector3 spawnPosition = transform.position + (spriteRenderer.flipX ? Vector3.left : Vector3.right) * 1f;
-
-        // Tạo tia chưởng lực
         GameObject energyWave = Instantiate(energyWavePrefab, spawnPosition, Quaternion.identity);
         energyWave.GetComponent<Rigidbody2D>().velocity = (spriteRenderer.flipX ? Vector2.left : Vector2.right) * energyWaveSpeed;
 
-        // Tạm dừng di chuyển trong lúc bắn
         speed = 0f;
         animator.SetBool("Attack", true);
 
-        yield return new WaitForSeconds(1f); // Thời gian tạm nghỉ khi bắn
+        yield return new WaitForSeconds(1f);
 
         speed = 1f;
         isShooting = false;
         animator.SetBool("Attack", false);
-        Destroy(energyWave, 2f); // Xóa tia chưởng lực sau 2 giây
+        Destroy(energyWave, 2f);
     }
 
     private IEnumerator ShootLaserEvery3Seconds()
@@ -95,7 +95,6 @@ public class BossXanh : MonoBehaviour
         {
             if (isDead) yield break;
 
-            // Tìm tất cả các đối tượng Player trong game
             GameObject[] players = GameObject.FindGameObjectsWithTag("Player");
 
             foreach (GameObject player in players)
@@ -103,15 +102,14 @@ public class BossXanh : MonoBehaviour
                 float distanceToPlayerX = Mathf.Abs(transform.position.x - player.transform.position.x);
                 float distanceToPlayerY = Mathf.Abs(transform.position.y - player.transform.position.y);
 
-                // Kiểm tra nếu Player trong tầm bắn trên trục X và chênh lệch Y không vượt quá maxYDifference
                 if (distanceToPlayerX <= shootingRange && distanceToPlayerY <= maxYDifference && !isShooting && IsPlayerInFront(player))
                 {
                     StartCoroutine(FireEnergyWave());
-                    break; // Chỉ bắn vào một mục tiêu
+                    break;
                 }
             }
 
-            yield return new WaitForSeconds(3f); // Chờ 3 giây trước lần bắn tiếp theo
+            yield return new WaitForSeconds(3f);
         }
     }
 
@@ -129,51 +127,71 @@ public class BossXanh : MonoBehaviour
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        if (isDead) return;
-        
-        if (animator.GetBool("Shield"))
-        {          
-            return;            
-        }
+        if (isDead || isShooting) return; // Nếu Boss đang chết hoặc bắn, không nhận sát thương
 
-        if (collision.gameObject.CompareTag("Bullet"))
+        // Kiểm tra xem Boss có đang trong thời gian chờ khiên không
+        if (!isShieldActive && !isShieldCooldown) // Boss không có khiên và không đang trong thời gian chờ
         {
-            Vector2 bulletDirection = collision.attachedRigidbody.velocity.normalized;
+            if (collision.gameObject.CompareTag("Bullet"))
+            {
+                currentHp -= 10; // Trừ máu
+                hpBar.SetHealth(currentHp); // Cập nhật thanh máu
 
-            if (bulletDirection.x > 0)
-            {
-                spriteRenderer.flipX = true;
-            }
-            else if (bulletDirection.x < 0)
-            {
-                spriteRenderer.flipX = false;
-            }
+                if (currentHp <= 0)
+                {
+                    StartCoroutine(HandleDeath());
+                    return;
+                }
 
-            animator.SetBool("Shield", true);
-            animator.SetBool("Attack", false);
-            StartCoroutine(StopShieldAnimation());
+                // Xác định hướng viên đạn và quay mặt của Boss
+                Vector2 bulletDirection = collision.attachedRigidbody.velocity.normalized;
+                spriteRenderer.flipX = bulletDirection.x > 0;
 
-            if (currentHp <= 0)
-            {
-                StartCoroutine(HandleDeath());
-                transform.Translate(Vector3.up * DeadSpeed * Time.deltaTime);
-            }
-            else
-            {
-                currentHp -= 10;
-                hpBar.SetHealth(currentHp);
-                Debug.Log("-10 HP");
+                // Sau khi bị bắn, bật khiên ngay lập tức (nếu không trong thời gian chờ)
+                StartCoroutine(StopShieldAnimation());
             }
         }
-        
+        else if (isShieldCooldown && !isShieldActive) // Boss đang trong thời gian chờ (2 giây sau khi tắt khiên)
+        {
+            // Nếu Boss đang trong thời gian chờ, nhận sát thương nhưng không bật lại khiên
+            if (collision.gameObject.CompareTag("Bullet"))
+            {
+                currentHp -= 10; // Trừ máu
+                hpBar.SetHealth(currentHp); // Cập nhật thanh máu
+
+                if (currentHp <= 0)
+                {
+                    StartCoroutine(HandleDeath());
+                    return;
+                }
+
+                // Xác định hướng viên đạn và quay mặt của Boss
+                Vector2 bulletDirection = collision.attachedRigidbody.velocity.normalized;
+                spriteRenderer.flipX = bulletDirection.x > 0;
+            }
+        }
     }
 
     private IEnumerator StopShieldAnimation()
     {
-        speed = 0f;
-        yield return new WaitForSeconds(3f);
-        speed = 1f;
-        animator.SetBool("Shield", false);
+        isShieldActive = true;  // Khiên được bật
+        isShieldCooldown = true; // Đang trong thời gian cooldown
+
+        animator.SetBool("Shield", true); // Bật khiên
+        speed = 0f; // Dừng di chuyển
+
+        yield return new WaitForSeconds(3f); // Giữ khiên trong 3 giây
+
+        animator.SetBool("Shield", false); // Tắt khiên
+        speed = 1f; // Khôi phục di chuyển
+
+        // Sau khi tắt khiên, Boss vào thời gian chờ 2 giây và sẽ nhận sát thương trong thời gian này
+        yield return new WaitForSeconds(2f); // Tắt animator trong 2 giây, Boss nhận sát thương
+
+        isShieldActive = false; // Khiên đã tắt hoàn toàn
+
+        yield return new WaitForSeconds(2f); // Thời gian hồi chiêu 2 giây trước khi có thể bật lại khiên
+        isShieldCooldown = false; // Hết thời gian hồi chiêu, có thể bật lại khiên
     }
 
     private IEnumerator HandleDeath()
