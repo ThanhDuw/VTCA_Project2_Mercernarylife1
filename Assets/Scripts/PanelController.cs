@@ -5,22 +5,27 @@ using UnityEngine.UI;
 public class PanelController : MonoBehaviour
 {
     [Header("UI Elements")]
-    public GameObject panel;        // Panel chứa 3 nút
+    public GameObject pauseScreen; // Màn hình đen khi pause
+    public GameObject buttonPanel; // Panel chứa các nút
+
     public Button closeButton;      // Nút tắt Panel
     public Button quitButton;       // Nút thoát game
     public Button continueButton;   // Nút tiếp tục (chức năng tùy chỉnh)
 
-    private bool isPanelActive = false; // Trạng thái hiển thị Panel
+    private bool isGamePaused = false; // Trạng thái tạm dừng game
 
     void Start()
     {
-        // Đảm bảo Panel ban đầu bị ẩn
-        if (panel != null)
-            panel.SetActive(false);
+        // Đảm bảo các panel ban đầu bị ẩn
+        if (pauseScreen != null)
+            pauseScreen.SetActive(false);
+
+        if (buttonPanel != null)
+            buttonPanel.SetActive(false);
 
         // Gắn sự kiện cho các nút
         if (closeButton != null)
-            closeButton.onClick.AddListener(ClosePanel);
+            closeButton.onClick.AddListener(ClosePauseMenu);
 
         if (quitButton != null)
             quitButton.onClick.AddListener(QuitGame);
@@ -31,34 +36,36 @@ public class PanelController : MonoBehaviour
 
     void Update()
     {
-        // Kiểm tra phím Esc để mở/tắt Panel
+        // Kiểm tra phím Esc để mở/tắt Pause Menu
         if (Input.GetKeyDown(KeyCode.Escape))
         {
-            TogglePanel();
+            TogglePauseMenu();
         }
     }
 
-    // Hàm mở/tắt Panel
-    public void TogglePanel()
+    // Hàm mở/tắt Pause Menu
+    public void TogglePauseMenu()
     {
-        isPanelActive = !isPanelActive;
+        isGamePaused = !isGamePaused;
 
-        if (panel != null)
+        if (pauseScreen != null && buttonPanel != null)
         {
-            panel.SetActive(isPanelActive);
-            Time.timeScale = isPanelActive ? 0 : 1; // Dừng hoặc tiếp tục thời gian
+            pauseScreen.SetActive(isGamePaused); // Hiển thị màn hình đen
+            buttonPanel.SetActive(isGamePaused); // Hiển thị panel nút
+            Time.timeScale = isGamePaused ? 0 : 1; // Dừng hoặc tiếp tục thời gian
         }
     }
 
-    // Hàm tắt Panel
-    public void ClosePanel()
+    // Hàm đóng Pause Menu
+    public void ClosePauseMenu()
     {
-        if (panel != null)
+        if (pauseScreen != null && buttonPanel != null)
         {
-            panel.SetActive(false);
-            Time.timeScale = 1; // Khôi phục thời gian về bình thường
+            pauseScreen.SetActive(false);
+            buttonPanel.SetActive(false);
+            Time.timeScale = 1; // Khôi phục thời gian
         }
-        isPanelActive = false;
+        isGamePaused = false;
     }
 
     // Hàm thoát game
@@ -78,6 +85,7 @@ public class PanelController : MonoBehaviour
     public void ContinueAction()
     {
         Debug.Log("Tiếp tục thực hiện hành động!");
-        ClosePanel(); // Đóng Panel sau khi nhấn nút này
+        ClosePauseMenu(); // Đóng Pause Menu sau khi nhấn nút này
     }
 }
+
