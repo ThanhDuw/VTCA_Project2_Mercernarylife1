@@ -22,11 +22,14 @@ public class PlayerMove : MonoBehaviour
     public GameObject playerInfoPanel; // Đối tượng panel để hiển thị thông tin
     public KeyCode toggleKey = KeyCode.E;
 
+    private AudioSource _audioSource;
+    [SerializeField] private AudioClip pickUpClip;
 
     void Start()
     {
         shield.SetActive(false);
         shieldAnimator = shield.GetComponent<Animator>();
+        _audioSource = GetComponent<AudioSource>();
 
     }
     // Update is called once per frame
@@ -96,4 +99,14 @@ public class PlayerMove : MonoBehaviour
         controller.Move(horizontalMove * Time.fixedDeltaTime, crouch, jump);
         jump = false;
     }
+    private void OnCollisionEnter2D(Collision2D collision)
+    {
+        if (collision.gameObject.CompareTag("Key")) // Kiểm tra xem đối tượng chạm có phải là Player
+        {
+            _audioSource.PlayOneShot(pickUpClip);
+            
+        }
+
+    }
+
 }

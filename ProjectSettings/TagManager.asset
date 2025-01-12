@@ -15,6 +15,7 @@ TagManager:
   - Enemy
   - Laser
   - Boss
+  - Key
   layers:
   - Default
   - TransparentFX

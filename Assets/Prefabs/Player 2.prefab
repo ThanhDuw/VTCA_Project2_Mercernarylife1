@@ -295,6 +295,7 @@ GameObject:
   - component: {fileID: 7646002791007820826}
   - component: {fileID: 2138147457045821837}
   - component: {fileID: 3238297515188792742}
+  - component: {fileID: 7926846418155764513}
   m_Layer: 6
   m_Name: Player 2
   m_TagString: Player
@@ -589,6 +590,9 @@ MonoBehaviour:
   firePoint: {fileID: 7300524408685194079}
   bulletPrefab: {fileID: 2810918747256329964, guid: 8521f25d482115441a716a1797a40f86, type: 3}
   animator: {fileID: 8665562576305671303}
+  _audioSource: {fileID: 0}
+  shootingClip: {fileID: 0}
+  cooldownTime: 0.5
 --- !u!114 &2138147457045821837
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -617,6 +621,7 @@ MonoBehaviour:
   manaText: {fileID: 0}
   levelText: {fileID: 0}
   xpText: {fileID: 0}
+  levelUpText: {fileID: 0}
 --- !u!114 &3238297515188792742
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -634,3 +639,16 @@ MonoBehaviour:
   laserSpeed: 10
   laserLifetime: 2
   animator: {fileID: 8665562576305671303}
+--- !u!114 &7926846418155764513
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5963767672668230920}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a5eaebb771dfbaf45bcfe1d61a6418b7, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  inventory: []

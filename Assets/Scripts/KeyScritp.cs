@@ -3,7 +3,6 @@
 public class KeyScritp : MonoBehaviour
 {
     [SerializeField] private GameObject keyPrefab; // Prefab của chìa khóa
-
     // Hàm này được gọi khi Boss chết
     public void DropKey(Vector3 position)
     {
@@ -20,4 +19,6 @@ public class KeyScritp : MonoBehaviour
             Debug.LogWarning("Key prefab chưa được gắn!");
         }
     }
+ 
+    
 }
