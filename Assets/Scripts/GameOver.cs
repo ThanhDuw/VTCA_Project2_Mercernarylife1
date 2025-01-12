@@ -30,7 +30,8 @@ public class GameOver : MonoBehaviour
         Debug.Log("Thoát game!");
 
         // Thoát ứng dụng khi build
-        Application.Quit();
+        //Application.Quit();
+        SceneManager.LoadScene("MainMenu");
 
 #if UNITY_EDITOR
         UnityEditor.EditorApplication.isPlaying = false;
