@@ -202,3 +202,5 @@ MonoBehaviour:
   bulletPrefab: {fileID: 2383671114505269089, guid: 47f19215e0592b14a84eb0202ed8baec, type: 3}
   bulletSpeed: 10
   destructionFX: {fileID: 1916644535388506190, guid: 04729440bdccdca499071e97a6dd6ecd, type: 3}
+  questNPC: {fileID: 5679775971460522379, guid: 25cb5bb92110cce4c9074b4d1383abee, type: 3}
+  xpReward: 50
