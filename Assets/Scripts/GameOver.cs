@@ -1,13 +1,12 @@
 ﻿using UnityEngine.UI;
 using UnityEngine;
-using UnityEngine.SceneManagement; // Thêm thư viện này để tải lại Scene
-
+using UnityEngine.SceneManagement;
+using System.Collections.Generic;
 public class GameOver : MonoBehaviour
 {
     [Header("UI Elements")]
     public GameObject panel;        // Panel chứa các nút điều khiển Game Over    
     public Button quitButton;       // Nút thoát game
-    public Button replayButton;     // Nút chơi lại (restart)
 
     private bool isPanelActive = false; // Trạng thái hiển thị Panel
 
@@ -20,8 +19,7 @@ public class GameOver : MonoBehaviour
         if (quitButton != null)
             quitButton.onClick.AddListener(QuitGame);
 
-        if (replayButton != null)
-            replayButton.onClick.AddListener(ReplayGame); // Gán sự kiện cho nút chơi lại
+         // Gán sự kiện cho nút chơi lại
     }
 
     // Hàm hiển thị giao diện Game Over
@@ -43,30 +41,41 @@ public class GameOver : MonoBehaviour
     public void QuitGame()
     {
         Debug.Log("Thoát game!");
+              
+        List<GameObject> dontDestroyObjects = GetDontDestroyOnLoadObjects();
 
+        // Xóa các object trong "DontDestroyOnLoad"
+        foreach (GameObject obj in dontDestroyObjects)
+        {
+            Destroy(obj);
+        }
         // Chuyển về Main Menu hoặc thoát ứng dụng
         SceneManager.LoadScene("MainMenu");
+    }
+    private List<GameObject> GetDontDestroyOnLoadObjects()
+    {
+        // Tạo một scene tạm
+        var tempScene = new UnityEngine.SceneManagement.Scene();
+        tempScene = UnityEngine.SceneManagement.SceneManager.CreateScene("TempScene");
 
-#if UNITY_EDITOR
-        UnityEditor.EditorApplication.isPlaying = false;
-#else
-        Application.Quit(); // Thoát game khi build ứng dụng
-#endif
+        // Chuyển tất cả object sang scene tạm, trừ các object trong "DontDestroyOnLoad"
+        List<GameObject> dontDestroyObjects = new List<GameObject>();
+        foreach (GameObject obj in FindObjectsOfType<GameObject>())
+        {
+            if (obj.scene.name == null || obj.scene.name != tempScene.name)
+            {
+                dontDestroyObjects.Add(obj);
+            }
+        }
+
+        // Xóa scene tạm (không ảnh hưởng đến các object khác)
+        UnityEngine.SceneManagement.SceneManager.UnloadSceneAsync(tempScene);
+        return dontDestroyObjects;
     }
 
     // Hàm chơi lại
-    public void ReplayGame()
+    public void Restart()
     {
-        Debug.Log("Chơi lại trò chơi!");
-
-        // Ẩn panel Game Over
-        if (panel != null)
-            panel.SetActive(false);
-
-        // Tải lại Scene hiện tại
-        SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
-
-        // Khôi phục thời gian
-        Time.timeScale = 1;
+        SceneManager.LoadSceneAsync(1);
     }
 }
