@@ -10623,6 +10623,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: HPbar
       objectReference: {fileID: 0}
+    - target: {fileID: 7690450271694484043, guid: ec5433154dcc4a6449968e0a97fafabe, type: 3}
+      propertyPath: m_TagString
+      value: Hp
+      objectReference: {fileID: 0}
     - target: {fileID: 8396294641111275039, guid: ec5433154dcc4a6449968e0a97fafabe, type: 3}
       propertyPath: m_AnchorMax.x
       value: 0
@@ -11223,6 +11227,10 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 2201077104826161492, guid: 873c066afc9ff374eabbb8a5d0955a8f, type: 3}
+      propertyPath: m_TagString
+      value: Quest
+      objectReference: {fileID: 0}
     - target: {fileID: 5664984142862996253, guid: 873c066afc9ff374eabbb8a5d0955a8f, type: 3}
       propertyPath: m_AnchorMax.x
       value: 0

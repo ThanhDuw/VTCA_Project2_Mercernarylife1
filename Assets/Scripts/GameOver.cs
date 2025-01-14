@@ -19,7 +19,7 @@ public class GameOver : MonoBehaviour
         if (quitButton != null)
             quitButton.onClick.AddListener(QuitGame);
 
-         // Gán sự kiện cho nút chơi lại
+        // Gán sự kiện cho nút chơi lại
     }
 
     // Hàm hiển thị giao diện Game Over
@@ -40,16 +40,30 @@ public class GameOver : MonoBehaviour
     // Hàm thoát game
     public void QuitGame()
     {
-        Debug.Log("Thoát game!");
-                    
-        // Chuyển về Main Menu hoặc thoát ứng dụng
-        SceneManager.LoadScene("MainMenu");
-    }
-    
+        Debug.Log("Thoát game và hủy các đối tượng liên quan!");
 
-    // Hàm chơi lại
-    public void Restart()
-    {
-        SceneManager.LoadSceneAsync(1);
+        // Tìm tất cả các đối tượng với tag "Player", "Hp", "Quest"
+        GameObject[] players = GameObject.FindGameObjectsWithTag("Player");
+        GameObject[] hps = GameObject.FindGameObjectsWithTag("Hp");
+        GameObject[] quests = GameObject.FindGameObjectsWithTag("Quest");
+
+        // Hủy tất cả các đối tượng tìm thấy
+        foreach (var player in players)
+        {
+            Destroy(player);
+        }
+
+        foreach (var hp in hps)
+        {
+            Destroy(hp);
+        }
+
+        foreach (var quest in quests)
+        {
+            Destroy(quest);
+        }
+
+        SceneManager.LoadScene("MainMenu");
+
     }
 }

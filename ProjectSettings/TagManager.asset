@@ -16,6 +16,8 @@ TagManager:
   - Laser
   - Boss
   - Key
+  - Hp
+  - Quest
   layers:
   - Default
   - TransparentFX
