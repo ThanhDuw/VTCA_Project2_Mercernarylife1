@@ -77,16 +77,16 @@ public class PlayerStats : MonoBehaviour
         animator.SetTrigger("PlayerHit");
         if (currentHealth <= 0)
         {
-            Die();
+            
             gameOver.SetActive(true);
             Time.timeScale = 0;
         }
     }
-    private void Die()
-    {
+    //private void Die()
+    //{
         
-        Destroy(gameObject);
-    }
+    //    Destroy(gameObject);
+    //}
     public void AddXP(int amount)
     {
         currentXP += amount;
