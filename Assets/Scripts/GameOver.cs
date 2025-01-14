@@ -41,37 +41,11 @@ public class GameOver : MonoBehaviour
     public void QuitGame()
     {
         Debug.Log("Thoát game!");
-              
-        List<GameObject> dontDestroyObjects = GetDontDestroyOnLoadObjects();
-
-        // Xóa các object trong "DontDestroyOnLoad"
-        foreach (GameObject obj in dontDestroyObjects)
-        {
-            Destroy(obj);
-        }
+                    
         // Chuyển về Main Menu hoặc thoát ứng dụng
         SceneManager.LoadScene("MainMenu");
     }
-    private List<GameObject> GetDontDestroyOnLoadObjects()
-    {
-        // Tạo một scene tạm
-        var tempScene = new UnityEngine.SceneManagement.Scene();
-        tempScene = UnityEngine.SceneManagement.SceneManager.CreateScene("TempScene");
-
-        // Chuyển tất cả object sang scene tạm, trừ các object trong "DontDestroyOnLoad"
-        List<GameObject> dontDestroyObjects = new List<GameObject>();
-        foreach (GameObject obj in FindObjectsOfType<GameObject>())
-        {
-            if (obj.scene.name == null || obj.scene.name != tempScene.name)
-            {
-                dontDestroyObjects.Add(obj);
-            }
-        }
-
-        // Xóa scene tạm (không ảnh hưởng đến các object khác)
-        UnityEngine.SceneManagement.SceneManager.UnloadSceneAsync(tempScene);
-        return dontDestroyObjects;
-    }
+    
 
     // Hàm chơi lại
     public void Restart()
