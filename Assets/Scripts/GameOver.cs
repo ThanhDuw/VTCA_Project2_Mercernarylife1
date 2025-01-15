@@ -40,30 +40,38 @@ public class GameOver : MonoBehaviour
     // Hàm thoát game
     public void QuitGame()
     {
-        Debug.Log("Thoát game và hủy các đối tượng liên quan!");
+        // Lấy danh sách các root object từ scene "DontDestroyOnLoad"
+        List<GameObject> dontDestroyObjects = GetDontDestroyOnLoadObjects();
 
-        // Tìm tất cả các đối tượng với tag "Player", "Hp", "Quest"
-        GameObject[] players = GameObject.FindGameObjectsWithTag("Player");
-        GameObject[] hps = GameObject.FindGameObjectsWithTag("Hp");
-        GameObject[] quests = GameObject.FindGameObjectsWithTag("Quest");
-
-        // Hủy tất cả các đối tượng tìm thấy
-        foreach (var player in players)
+        // Xóa các object trong "DontDestroyOnLoad"
+        foreach (GameObject obj in dontDestroyObjects)
         {
-            Destroy(player);
+            Destroy(obj);
         }
 
-        foreach (var hp in hps)
-        {
-            Destroy(hp);
-        }
-
-        foreach (var quest in quests)
-        {
-            Destroy(quest);
-        }
+        
 
         SceneManager.LoadScene("MainMenu");
 
+    }
+    private List<GameObject> GetDontDestroyOnLoadObjects()
+    {
+        // Tạo một scene tạm
+        var tempScene = new UnityEngine.SceneManagement.Scene();
+        tempScene = UnityEngine.SceneManagement.SceneManager.CreateScene("TempScene");
+
+        // Chuyển tất cả object sang scene tạm, trừ các object trong "DontDestroyOnLoad"
+        List<GameObject> dontDestroyObjects = new List<GameObject>();
+        foreach (GameObject obj in FindObjectsOfType<GameObject>())
+        {
+            if (obj.scene.name == null || obj.scene.name != tempScene.name)
+            {
+                dontDestroyObjects.Add(obj);
+            }
+        }
+
+        // Xóa scene tạm (không ảnh hưởng đến các object khác)
+        UnityEngine.SceneManagement.SceneManager.UnloadSceneAsync(tempScene);
+        return dontDestroyObjects;
     }
 }

@@ -30,7 +30,7 @@ public class PlayerMove : MonoBehaviour
         shield.SetActive(false);
         shieldAnimator = shield.GetComponent<Animator>();
         _audioSource = GetComponent<AudioSource>();
-
+        playerInfoPanel.SetActive(false);
     }
     // Update is called once per frame
     void Update()

@@ -1,4 +1,5 @@
-﻿using UnityEngine;
+﻿using System.Collections.Generic;
+using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 
@@ -71,14 +72,38 @@ public class PanelController : MonoBehaviour
     // Hàm thoát game
     public void QuitGame()
     {
-        Debug.Log("Thoát game!");
+        // Lấy danh sách các root object từ scene "DontDestroyOnLoad"
+        List<GameObject> dontDestroyObjects = GetDontDestroyOnLoadObjects();
 
-        // Thoát ứng dụng khi build
-        Application.Quit();
+        // Xóa các object trong "DontDestroyOnLoad"
+        foreach (GameObject obj in dontDestroyObjects)
+        {
+            Destroy(obj);
+        }
 
-#if UNITY_EDITOR
-        UnityEditor.EditorApplication.isPlaying = false;
-#endif
+
+
+        SceneManager.LoadScene("MainMenu");
+    }
+    private List<GameObject> GetDontDestroyOnLoadObjects()
+    {
+        // Tạo một scene tạm
+        var tempScene = new UnityEngine.SceneManagement.Scene();
+        tempScene = UnityEngine.SceneManagement.SceneManager.CreateScene("TempScene");
+
+        // Chuyển tất cả object sang scene tạm, trừ các object trong "DontDestroyOnLoad"
+        List<GameObject> dontDestroyObjects = new List<GameObject>();
+        foreach (GameObject obj in FindObjectsOfType<GameObject>())
+        {
+            if (obj.scene.name == null || obj.scene.name != tempScene.name)
+            {
+                dontDestroyObjects.Add(obj);
+            }
+        }
+
+        // Xóa scene tạm (không ảnh hưởng đến các object khác)
+        UnityEngine.SceneManagement.SceneManager.UnloadSceneAsync(tempScene);
+        return dontDestroyObjects;
     }
 
     // Hàm tiếp tục (chức năng có thể tuỳ chỉnh theo ý bạn)
